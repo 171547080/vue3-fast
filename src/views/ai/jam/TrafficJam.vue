@@ -1,9 +1,0 @@
-<template>
-    <div>高速公路拥堵识别</div>
-    <div>开发中</div>
-</template>
-<script setup lang="ts">
-import { defineComponent } from 'vue';
-defineComponent({
-})
-</script>
