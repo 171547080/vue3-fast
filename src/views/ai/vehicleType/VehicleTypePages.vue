@@ -5,7 +5,7 @@
       轿车、客车、火车、三轮车、摩托车、危化品车辆)，对在不利条件下拍摄的图像由于像素偏移导致小物体模糊等问题具有较强的纠正的功能
     </p>
   </div>
-  <Toolbar>
+  <gc-toolbar>
     <template #left>
       <a-button type="primary" @click="
         () => {
@@ -26,7 +26,7 @@
       <a-input-search v-model:value="tableCfg.params.key" class="item-input" placeholder="名称/描述关键字搜索" enter-button
         @search="onSearch" />
     </template>
-  </Toolbar>
+  </gc-toolbar>
   <gc-tablex :columns="tableCfg.columns" :data="tableCfg.data" :loading="tableCfg.loading"
     :noDataText="tableCfg.noDataText" :errorMessage="tableCfg.errorMessage" :pageNo="tableCfg.pageNo"
     :pageSize="tableCfg.pageSize">
