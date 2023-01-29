@@ -65,7 +65,7 @@ export const useUserStore = defineStore({
     async checkLogin(showSpinning?: boolean) {
       if (!isLogin()) {
         // 路由跳转到登录页面
-        console.error("未登录")
+        console.error("用户未登录")
         router.push({ name: 'login' })
       } else {
         //是否展示加载中遮罩

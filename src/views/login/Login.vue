@@ -131,10 +131,9 @@ const onFinish = () => {
         // 显示提示
         message.error(res.message)
       })
-    })
-    .catch(validateErr => {
+    }).catch(() => {
       // 校验不通过
-      message.error(validateErr)
+      // No do someting
     });
 };
 

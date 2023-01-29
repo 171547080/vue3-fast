@@ -5,18 +5,22 @@
   </outer-frame>
 </template>
 <script setup>
-import { defineComponent } from "vue";
+import { defineComponent, onBeforeMount } from "vue";
 import OuterFrame from "./components/ifram/outer-frame.vue";
 import { useUserStore, useAppStore } from "@/store";
 
 defineComponent({
   OuterFrame
 })
-//检查登录信息
-useUserStore().checkLogin(true);
 
-// 模拟登录
-useAppStore().loadProperties()
+onBeforeMount(() => {
+  // 检查登录信息
+  useUserStore().checkLogin(true);
+
+  // 加载动态配置
+  useAppStore().loadProperties()
+})
+
 
 </script>
 <style lang="less" scoped>

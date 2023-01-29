@@ -26,7 +26,7 @@ export const API_TARGET_URL = 'http://192.168.215.7:8002/ai-backend';
 
 // mock
 export const MOCK_API_BASE_URL = '/mock';
-export const MOCK_API_TARGET_URL = 'http://192.168.215.100:7300/mock/62b41a92baaffd002bc6119f';
+export const MOCK_API_TARGET_URL = 'http://192.168.215.28:7300/mock/62b41a92baaffd002bc6119f';
 
 // 环境变量中配置的运行模式 development | prod   开发 | 生产
 export const ENV_MODE = ENV.VITE_ENV_MODE   

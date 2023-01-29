@@ -1,6 +1,8 @@
 <template>
   <div class="content-warp" style="width: 100%">
-    <div></div>
+    <div>
+      首页
+    </div>
   </div>
 </template>
 <script lang="ts" setup>
