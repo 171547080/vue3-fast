@@ -20,9 +20,13 @@ npx yarn build
 
 # VsCcode 开发环境 与 代码风格 （TS）
 
-插件：ESLint, local History, prettier, Volar
+插件：ESLint, local History, prettier, Volar(vetur如有安装请停用)
+Git: Git History, Git Graph, GitLens
 全局只用 ESLint 与 Volar
-通过 右键格式文本 -> 选择 ESLint
+统一使用TS语法，非必要不创建.js文件
+
+格式化：
+通过 右键格式化文本 -> 选择 ESLint
 
 # 关于@
 
