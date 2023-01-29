@@ -1,8 +1,11 @@
 <template>
-  <outer-frame>
-    <router-view>
-    </router-view>
-  </outer-frame>
+  
+    <outer-frame>
+      <div class="main">
+        <router-view> </router-view>
+      </div>
+    </outer-frame>
+
 </template>
 <script setup>
 import { defineComponent, onBeforeMount } from "vue";
@@ -11,17 +14,19 @@ import { useUserStore, useAppStore } from "@store/index";
 
 defineComponent({
   OuterFrame
-})
+});
 
 onBeforeMount(() => {
   // 检查登录信息
   useUserStore().checkLogin(true);
 
   // 加载动态配置
-  useAppStore().loadProperties()
-})
-
-
+  useAppStore().loadProperties();
+});
 </script>
 <style lang="less" scoped>
+.main {
+  overflow: scroll;
+  height: calc(100vh - 60px);
+}
 </style>

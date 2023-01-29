@@ -6,11 +6,19 @@
                 <span class="title">{{ CONFIG.appName }}</span>
             </div>
             <div class="topic-middle">
+                <div class="server-info">
+                    <div class="server-text" :class="{ active: isIndexServer }" @click="indexClickHandle">{{ "首页" }}
+                        <CaretDownOutlined v-show="false" style="color:#fff;margin: 6px 5px;" />
+                    </div>
+                </div>
+
                 <div class="server-info ">
-                    <div class="server-text" :class="{ active: isAiServer }" @click="serverClickHandle">{{ "AI服务" }}
+                    <div class="server-text" :class="{ active: isAiServer }" @click="serverClickHandle">{{ "服务" }}
                         <CaretDownOutlined style="color:#fff;margin: 6px 5px;" />
                     </div>
                 </div>
+
+        
                 <div class="server-info" v-if="false">
                     <div class="server-text" :class="{ active: isSystemServer }" @click="systemClickHandle">{{ "系统管理" }}
                         <CaretDownOutlined v-show="false" style="color:#fff;margin: 6px 5px;" />
@@ -58,6 +66,7 @@ defineComponent({
 const userStore = useUserStore()
 const isAiServer = ref(false)
 const isSystemServer = ref(false)
+const isIndexServer = ref(false)
 
 // 激活当前菜单
 const checkCurrentServer = (newUrl?:string) => {
@@ -65,6 +74,7 @@ const checkCurrentServer = (newUrl?:string) => {
   // 路由固定配置  /ai/ 地址 为 AI服务    /system/ 地址为 系统管理
   isAiServer.value = url.indexOf('/ai/') > -1
   isSystemServer.value = url.indexOf('/system/') > -1
+  isIndexServer.value = url.indexOf('/index/') > -1
 }
 
 
@@ -78,11 +88,20 @@ const logoutClickHandle = () => {
   });
 }
 
+// 首页链接
+const indexClickHandle = () => {
+  router.push({ name: 'indexV1' }).then(() => {
+    checkCurrentServer()
+  })
+}
+
+// 服务链接
 const serverClickHandle = () => {
   router.push({ name: 'AI' }).then(() => {
     checkCurrentServer()
   })
 }
+// 系统链接
 const systemClickHandle = () => {
   router.push({ name: 'System' }).then(() => {
     checkCurrentServer()

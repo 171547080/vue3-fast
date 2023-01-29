@@ -1,0 +1,6 @@
+export { default as inform } from './inform/index.vue'
+export { default as collect } from './data/collect.vue'
+export { default as histogram } from './data/histogram.vue'
+export { default as news } from './news/index.vue'
+export { default as policy } from './policy/index.vue'
+export { default as bulletin } from './bulletin/index.vue'

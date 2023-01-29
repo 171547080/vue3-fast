@@ -21,6 +21,27 @@ const main = [
       title: "登录"
     },
     component: () => import("@views/login/Login.vue")
+  },
+  // 首页demo
+  {
+    name: "indexV1",
+    path: "/index/v1",
+    meta: {
+      title: "首页"
+    },
+    component: () => import("@views/index/v1.vue")
+  },
+  // 404页面匹配未配置的路径
+  {
+    path: '/:pathMatch(.*)*',
+    name: '404',
+    component: () => import('@/views/error/404.vue'),
+    hidden: true
+  },
+  {
+    path: '/401',
+    component: () => import('@/views/error/401.vue'),
+    hidden: true
   }
 ]
 export default main;

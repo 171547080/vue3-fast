@@ -2,7 +2,9 @@
     <a-config-provider :locale="locale === 'cn' ? zhCN : enUS">
         <a-spin :spinning="appStore.spinning">
             <Topic></Topic>
-            <slot></slot>
+            <div class="main-content">
+                <slot></slot>
+            </div>
         </a-spin>
     </a-config-provider>
 </template>
@@ -22,3 +24,10 @@ defineComponent({
 const locale = ref("cn")
 const appStore = useAppStore()
 </script>
+<style lang="less" scoped>
+.main-content{
+    min-height: 90vh;
+    min-width: 100%;
+    position: relative;
+}
+</style>
