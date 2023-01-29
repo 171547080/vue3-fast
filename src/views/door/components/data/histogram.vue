@@ -33,14 +33,5 @@ export default {
 <style lang="scss" scoped>
 .histogram {
   width: 100%;
-  .el-tabs {
-    margin-top: 10px;
-  }
-  ::v-deep.el-tabs__item {
-    font-size: 22px;
-  }
-  .el-tabs__nav-wrap {
-    border-bottom: 2px solid #dfe4ed;
-  }
 }
 </style>

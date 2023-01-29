@@ -1,16 +1,15 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
+import CONFIG from '@/config'
 import main from "./main";
 import ai from "./modules/ai";
 import system from "./modules/system";
 
-// import { useUserStore } from "@store/index";
+const IS_HISTORY = CONFIG.ROUTER_MODE === 'history'
 
 const router = createRouter({
-  // hash模式
-  history: createWebHashHistory(),
+  history: IS_HISTORY ? createWebHistory() : createWebHashHistory(),
   routes: [...main, ...ai, ...system]
 });
-
 
 /**
  * 全局守卫

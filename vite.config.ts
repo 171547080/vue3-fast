@@ -53,7 +53,8 @@ export default defineConfig(({command, mode}) => {
     define: {
       'process.env.VITE_APP_NAME': JSON.stringify(env.VITE_APP_NAME),
       'process.env.VITE_API_MOCK': JSON.stringify(env.VITE_API_MOCK),
-      'process.env.VITE_ENV_MODE': JSON.stringify(env.VITE_ENV_MODE)   
+      'process.env.VITE_ENV_MODE': JSON.stringify(env.VITE_ENV_MODE),
+      'process.env.VITE_ROUTER_MODE': JSON.stringify(env.VITE_ROUTER_MODE)
     },
     server: {
       // 设置为'0.0.0.0' 所有网卡都会启动服务

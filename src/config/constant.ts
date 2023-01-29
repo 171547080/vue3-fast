@@ -36,3 +36,7 @@ export const API_MOCK = ENV.VITE_API_MOCK
 
 // 应用名称
 export const APP_NAME = ENV.VITE_APP_NAME || '应用名称'   
+
+// 路由模式
+export const ROUTER_MODE =  process.env.VITE_ROUTER_MODE || 'hash'   
+
