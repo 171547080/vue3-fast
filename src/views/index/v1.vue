@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import viewIndex from "@/views/door/index.vue";
-import StatusBar from "../door/components/StatusBar/index.vue"
+import StatusBar from "../door/components/status-bar/index.vue"
 import BottomBar from "../door/components/bottom-bar/index.vue"
 const getAssetsFile = (url) => {
   return new URL(`../assets/${url}`, import.meta.url).href
