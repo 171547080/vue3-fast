@@ -7,7 +7,7 @@
 <script setup>
 import { defineComponent, onBeforeMount } from "vue";
 import OuterFrame from "./components/ifram/outer-frame.vue";
-import { useUserStore, useAppStore } from "@/store";
+import { useUserStore, useAppStore } from "@store/index";
 
 defineComponent({
   OuterFrame

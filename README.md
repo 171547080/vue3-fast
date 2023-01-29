@@ -18,6 +18,9 @@ npx yarn build
 
 输出路径为 /dist
 
+# 使用技术栈
+vite + vue3 + vue-router + pinia + ts
+
 # VsCcode 开发环境 与 代码风格 （TS）
 
 插件：ESLint, local History, prettier, Volar(vetur如有安装请停用)

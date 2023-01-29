@@ -49,7 +49,7 @@
 import { CaretDownOutlined, UserOutlined, LogoutOutlined, FormOutlined } from '@ant-design/icons-vue';
 import Logo from '@/components/ifram/i-logo.vue'
 import { defineComponent, ref, onMounted } from 'vue';
-import { useUserStore } from "@/store"
+import { useUserStore } from "@store/index"
 import router from "@/router"
 import CONFIG from "@/config"
 defineComponent({

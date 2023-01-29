@@ -14,7 +14,7 @@ import enUS from 'ant-design-vue/es/locale/en_US';
 
 import Topic from '@components/ifram/i-topic.vue'
 import { defineComponent, ref } from 'vue';
-import { useAppStore } from "@/store";
+import { useAppStore } from "@store/index";
 defineComponent({
   Topic
 })

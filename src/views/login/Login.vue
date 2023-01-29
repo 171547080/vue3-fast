@@ -51,7 +51,7 @@ import Router from "../../router/index";
 import { Form } from 'ant-design-vue';
 import Logo from '@/components/ifram/i-logo.vue'
 import { message } from 'ant-design-vue';
-import { useUserStore } from '@/store'
+import { useUserStore } from '@store/index'
 import LoginingPanel from './logining-panel.vue'
 import CONFIG from "@/config"
 const ADMIN_PASSWORD = "123456"

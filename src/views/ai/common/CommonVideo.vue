@@ -28,7 +28,7 @@
 </template>
 <script setup lang="ts">
 import { ref, onUnmounted, reactive } from 'vue';
-import { useAppStore } from "@/store";
+import { useAppStore } from "@store/index";
 import { PlayCircleOutlined } from '@ant-design/icons-vue';
 import { message } from 'ant-design-vue';
 import flvjs from 'flv.js'

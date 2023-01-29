@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { setToken, isLogin, clearToken } from "../../../utils/auth"
-import { useAppStore } from '@/store'
+import { useAppStore } from '@store/index'
 import userApi from "@api/user"
 import { UserState } from "./types"
 import router from '@/router';

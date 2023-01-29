@@ -6,7 +6,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { useUserStore } from "@/store";
+import { useUserStore } from "@store/index";
 import router  from "@/router"
 
 useUserStore().checkLogin(true);

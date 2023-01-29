@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import piniaStore from '@/store'
+import piniaStore from '@store/index'
 import antd from 'ant-design-vue';
 import gc from './components/gc/index'
 

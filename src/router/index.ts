@@ -3,7 +3,7 @@ import main from "./main";
 import ai from "./modules/ai";
 import system from "./modules/system";
 
-// import { useUserStore } from "@/store";
+// import { useUserStore } from "@store/index";
 
 const router = createRouter({
   // hash模式
