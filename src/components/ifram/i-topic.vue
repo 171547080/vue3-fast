@@ -3,7 +3,7 @@
         <div class="topic">
             <div class="topic-left">
                 <Logo></Logo>
-                <span class="title">人工智能交通应用平台</span>
+                <span class="title">{{ CONFIG.appName }}</span>
             </div>
             <div class="topic-middle">
                 <div class="server-info ">
@@ -51,6 +51,7 @@ import Logo from '@/components/ifram/i-logo.vue'
 import { defineComponent, ref, onMounted } from 'vue';
 import { useUserStore } from "@/store"
 import router from "@/router"
+import CONFIG from "@/config"
 defineComponent({
   Logo
 })

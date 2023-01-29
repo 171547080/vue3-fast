@@ -3,7 +3,7 @@
     <div class="login-panel" ref="loginPanelRef">
       <div class="panel-head">
         <Logo :height="40" />
-        <div class="panel-title">人工智能交通应用平台</div>
+        <div class="panel-title">{{ CONFIG.appName }}</div>
       </div>
       <div class="panel-body">
         <a-form :model="formState" name="normal_login" class="login-form" @finish="onFinish"
@@ -53,6 +53,7 @@ import Logo from '@/components/ifram/i-logo.vue'
 import { message } from 'ant-design-vue';
 import { useUserStore } from '@/store'
 import LoginingPanel from './logining-panel.vue'
+import CONFIG from "@/config"
 const ADMIN_PASSWORD = "123456"
 defineComponent({
   Logo,
