@@ -19,7 +19,6 @@ export default {
 
 <style lang="scss" scoped>
 .policy-content {
-  margin-top: 52px;
   padding-left: 30px;
 }
 </style>

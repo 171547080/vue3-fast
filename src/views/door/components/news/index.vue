@@ -76,7 +76,6 @@ export default {
 <style lang="scss" scoped>
 .news-content {
   background-color: #fff;
-  margin-top: 52px;
   padding-left: 30px;
   .news-box {
     display: flex;

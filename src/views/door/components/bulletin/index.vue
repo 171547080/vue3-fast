@@ -20,7 +20,6 @@ export default {
 <style lang="scss" scoped>
 .bulletin-content {
   background-color: #fff;
-  margin-top: 52px;
   padding-left: 30px;
 }
 </style>
