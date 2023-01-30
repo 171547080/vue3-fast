@@ -31,10 +31,13 @@
 
 <script name="news" setup lang="ts">
 import titleBar from "../toolBar/titleBar.vue";
+import img1 from '@assets/cutimg/carousel1.png'
+import img2 from '@assets/cutimg/carousel2.png'
+import img3 from '@assets/cutimg/carousel3.png'
 import {ref} from 'vue'
-const getAssetsFile = (url) => {
-  return new URL(`../assets/${url}`, import.meta.url).href
-}
+// const getAssetsFile = (url) => {
+//   return new URL(`../assets/${url}`, import.meta.url).href
+// }
 
 interface picsItem {
   url?: string | undefined
@@ -55,11 +58,18 @@ interface contentArray {
 
 // 图片列表
 const pics = ref<picsArray>([])
+// pics.value = [
+//   { url: getAssetsFile("../../../../assets/cutimg/carousel1.png") },
+//   { url: getAssetsFile("../../../../assets/cutimg/carousel2.png") },
+//   { url: getAssetsFile("../../../../assets/cutimg/carousel3.png") }
+// ]
+
 pics.value = [
-  { url: getAssetsFile("../../../../assets/cutimg/carousel1.png") },
-  { url: getAssetsFile("../../../../assets/cutimg/carousel2.png") },
-  { url: getAssetsFile("../../../../assets/cutimg/carousel3.png") }
+  { url: img1 },
+  { url: img2 },
+  { url: img3 }
 ]
+
 
 // 内容列表
 const content = ref<contentArray>([])

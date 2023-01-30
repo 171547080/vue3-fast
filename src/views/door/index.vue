@@ -3,7 +3,7 @@
     <inform />
     <transition name="fade" enter-active-class="animated animate__backInLeft"
       leave-active-class="animated  animate__backOutLeft">
-      <div class="data" v-show="animateStatus.dataShow">
+      <div class="data" v-show="true">
         <collect />
         <histogram />
       </div>

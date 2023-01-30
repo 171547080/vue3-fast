@@ -44,6 +44,7 @@ export default defineConfig(({command, mode}) => {
         "@": path.resolve(__dirname, './src'),
         '@config': resovePath('./config'),
         "@components": resovePath('./src/components'),
+        "@assets": resovePath('./src/assets'),
         "@store": resovePath('./src/store'),
         '@api': resovePath('./src/api'),
         '@views': resovePath('./src/views'),
