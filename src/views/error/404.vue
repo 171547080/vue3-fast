@@ -25,16 +25,11 @@
   </div>
 </template>
 
-<script>
+<script name="404" setup lang="ts">
+import { computed } from "vue"
 
-export default {
-  name: 'Page404',
-  computed: {
-    message() {
-      return '找不到网页！'
-    }
-  }
-}
+const message = computed(() => { return '找不到网页！' })
+
 </script>
 
 <style lang="scss" scoped>

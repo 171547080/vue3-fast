@@ -13,32 +13,36 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "StatusBar",
-  data() {
-    return {
-      statusBar: [
-        {
-          title: "信息资源目录",
-          data: 3616
-        },
-        {
-          title: "数据资源目录",
-          data: 6616
-        },
-        {
-          title: "接口服务",
-          data: 26
-        },
-        {
-          title: "应用服务",
-          data: 18
-        }
-      ]
-    };
+<script name="StatusBar" setup lang="ts">
+import {ref} from "vue"
+
+
+interface StatusBarItem {
+  title?: string,
+  data?: string | number | undefined
+}
+interface StatusBarArray {
+  [index: number]: StatusBarItem
+}
+const statusBar = ref<StatusBarArray>([])
+statusBar.value = [
+  {
+    title: "信息资源目录",
+    data: 3616
+  },
+  {
+    title: "数据资源目录",
+    data: 6616
+  },
+  {
+    title: "接口服务",
+    data: 26
+  },
+  {
+    title: "应用服务",
+    data: 18
   }
-};
+]
 </script>
 
 <style lang="scss" scoped>

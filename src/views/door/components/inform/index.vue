@@ -56,10 +56,8 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'News'
-};
+<script name="news" setup lang="ts">
+// do something
 </script>
 
 <style scoped>

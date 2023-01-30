@@ -7,7 +7,7 @@
     </outer-frame>
 
 </template>
-<script setup>
+<script name="app" setup>
 import { defineComponent, onBeforeMount } from "vue";
 import OuterFrame from "./components/ifram/outer-frame.vue";
 import { useUserStore, useAppStore } from "@store/index";

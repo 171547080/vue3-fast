@@ -10,7 +10,7 @@
   </a-spin>
   <PopupVechicleTypeVideoPlay ref="popupPlay" @onSubmit="refresh" />
 </template>
-<script setup lang="ts">
+<script name="VehicleTypeVideo" setup lang="ts">
 import { defineComponent, ref, reactive, onMounted, onBeforeUnmount } from "vue";
 import router from "@/router";
 import vehicleTypeApi from "@api/vehicleType/vehicleTypeApi";

@@ -19,28 +19,27 @@
         </ul>
       </a-col>
       <a-col :span="24">
-        <img src="../../assets/401_images/401.gif" width="313" height="428" alt="Girl has dropped her ice cream.">
+        <img :src="errGif" width="313" height="428" alt="Girl has dropped her ice cream.">
       </a-col>
     </a-row>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Page401',
-  data() {
-    return {
-      errGif: '../../assets/401_images/401.gif?' + +new Date()
-    }
-  },
-  methods: {
-    back() {
-      if (this.$route.query.noGoBack) {
-        this.$router.push({ path: '/' })
-      } else {
-        this.$router.go(-1)
-      }
-    }
+<script name="401" setup lang="ts">
+import { ref } from "vue"
+import router from '@/router';
+
+const getAssetsFile = (url) => {
+  return new URL(`../assets/${url}`, import.meta.url).href
+}
+
+const errGif = ref(getAssetsFile('../../assets/401_images/401.gif') + '?' + new Date())
+const back = () => {
+  console.error(router)
+  if (!router.getRoutes().length) {
+    router.push({ path: '/' })
+  } else {
+    router.back()
   }
 }
 </script>

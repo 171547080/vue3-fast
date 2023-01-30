@@ -44,7 +44,7 @@
     <logining-panel :loading="loading" :status="loadingStatus" />
   </div>
 </template>
-<script setup lang="ts">
+<script name="login" setup lang="ts">
 import { defineComponent, reactive, ref } from 'vue';
 import Velocity from 'velocity-animate'
 import Router from "../../router/index";

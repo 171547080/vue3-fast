@@ -1,19 +1,18 @@
 <template>
   <div class="title">
-    <h2>{{ content }}</h2>
+    <h2>{{ props.content || '' }}</h2>
     <span>查看更多</span>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'titleBar',
-  props: {
-    content: {
-      type: String
-    }
+<script name="titleBar" setup lang="ts">
+const props = defineProps({
+  content: {
+    type: String,
+    default: () => ''
   }
-};
+})
+
 </script>
 
 <style lang="scss" scoped>

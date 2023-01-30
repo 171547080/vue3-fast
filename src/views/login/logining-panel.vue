@@ -16,7 +16,7 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script name="loginPanel" setup lang="ts">
 import { ref, watch } from 'vue'
 import Velocity from 'velocity-animate'
 

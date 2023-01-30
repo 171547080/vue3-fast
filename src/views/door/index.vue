@@ -17,23 +17,9 @@
   </div>
 </template>
 
-<script>
+<script name="doorIndex" setup lang="ts">
 import { inform, collect, news, policy, bulletin, histogram } from "./components";
-export default {
-  name: "DoorIndex",
-  components: {
-    inform,
-    collect,
-    news,
-    policy,
-    bulletin,
-    histogram
-  },
-  data() {
-    return {};
-  },
-  methods: {}
-};
+
 </script>
 
 <style scoped>

@@ -6,7 +6,7 @@
         <router-view></router-view>
     </inner-frame>
 </template>
-<script setup lang="ts">
+<script name="ai" setup lang="ts">
 import InnerFrame from '@components/ifram/inner-frame.vue'
 import LeftMenu from '@components/ifram/left-menu.vue'
 import { defineComponent } from 'vue';

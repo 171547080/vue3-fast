@@ -34,12 +34,12 @@
         </div>
     </div>
 </template>
-<script setup lang="ts">
+<script setup lang="ts" name="statisticsInfo">
 import { onMounted, reactive, ref, onUnmounted } from 'vue'
 import { CaretRightOutlined, PauseOutlined } from '@ant-design/icons-vue'
 import vehicleTypeApi from "@api/vehicleType/vehicleTypeApi";
 import { CarTypeArray } from '../commom/CarType'
-import { TaskScheduler } from "@/components/gc/TaskScheduler"
+import { TaskScheduler } from "@/components/gc/js/TaskScheduler"
 
 import { dateFormat } from '@/utils/moment'
 import CurrentNumStatisticsCharts from './charts/CurrentNumStatisticsCharts.vue'
@@ -48,70 +48,70 @@ import CurrentCountStatisticsCharts from './charts/CurrentCountStatisticsCharts.
 const carTypeIndexMap = {}
 
 const info = reactive({
-    id: '',
-    isLoadData: false,
-    delayTime: 2000,
-    operationTime: '--',
+  id: '',
+  isLoadData: false,
+  delayTime: 2000,
+  operationTime: '--'
 })
 /**
  * 加载当前通过画面车辆识别数据方法
  */
 const loadCurrentCarData = () => {
-    return new Promise((resolve, rejct) => {
-        vehicleTypeApi.current(info.id, 1).then((res) => {
-            if (res.data && res.data.list) {
-                const table = tableData.value
-                res.data.list.forEach((item) => {
-                    const info = item.statistics
-                    info.forEach((item) => {
-                        const carType = item.name
-                        const itemIndex = carTypeIndexMap[carType]
-                        if (itemIndex) {
-                            table[itemIndex].current = item.count
-                        }
-                    })
-
-                })
+  return new Promise((resolve, rejct) => {
+    vehicleTypeApi.current(info.id, 1).then((res) => {
+      if (res.data && res.data.list) {
+        const table = tableData.value
+        res.data.list.forEach((item) => {
+          const info = item.statistics
+          info.forEach((item) => {
+            const carType = item.name
+            const itemIndex = carTypeIndexMap[carType]
+            if (itemIndex) {
+              table[itemIndex].current = item.count
             }
-            countChartRef.value?.draw()
-            resolve(res)
-        }).catch((error) => {
-            console.error(error)
-            CurrentCarTask.stop()
+          })
+
         })
+      }
+      countChartRef.value?.draw()
+      resolve(res)
+    }).catch((error) => {
+      console.error(error)
+      CurrentCarTask.stop()
     })
+  })
 }
 
 /**
  * 加载当前通过画面车辆总数方法
  */
 const loadCountCarData = () => {
-    return new Promise((resolve, rejct) => {
-        vehicleTypeApi.statistics(info.id, 1).then((res) => {
-            info.operationTime = dateFormat(res.data.operationTime)
+  return new Promise((resolve, rejct) => {
+    vehicleTypeApi.statistics(info.id, 1).then((res) => {
+      info.operationTime = dateFormat(res.data.operationTime)
 
-            if (res.data && res.data.list) {
-                const table = tableData.value
-                res.data.list.forEach((item) => {
-                    const info = item.statistics
-                    info.forEach((item) => {
-                        const carType = item.name
-                        const itemIndex = carTypeIndexMap[carType]
-                        if (itemIndex) {
-                            table[itemIndex].count = item.count
-                        }
-                    })
-
-                })
+      if (res.data && res.data.list) {
+        const table = tableData.value
+        res.data.list.forEach((item) => {
+          const info = item.statistics
+          info.forEach((item) => {
+            const carType = item.name
+            const itemIndex = carTypeIndexMap[carType]
+            if (itemIndex) {
+              table[itemIndex].count = item.count
             }
+          })
 
-            currentChartRef.value?.draw()
-            resolve(res)
-        }).catch((error) => {
-            console.error(error)
-            CurrentCarTask.stop()
         })
+      }
+
+      currentChartRef.value?.draw()
+      resolve(res)
+    }).catch((error) => {
+      console.error(error)
+      CurrentCarTask.stop()
     })
+  })
 }
 /**
  * 构建加载数据任务调度器
@@ -122,57 +122,57 @@ const CountCarTask = new TaskScheduler(loadCountCarData)
 const currentChartRef = ref<InstanceType<typeof CurrentNumStatisticsCharts>>()
 const countChartRef = ref<InstanceType<typeof CurrentCountStatisticsCharts>>()
 
-const startLoadData = (id: string, delayTime: number = 5000) => {
-    info.isLoadData = true
-    info.id = id;
-    info.delayTime = delayTime;
+const startLoadData = (id: string, delayTime = 5000) => {
+  info.isLoadData = true
+  info.id = id;
+  info.delayTime = delayTime;
 
-    // 开启加载当前画面车辆数
-    CurrentCarTask.setDelayTime(delayTime)
-    CurrentCarTask.start()
+  // 开启加载当前画面车辆数
+  CurrentCarTask.setDelayTime(delayTime)
+  CurrentCarTask.start()
 
-    // 开启加载车辆总数任务
-    CountCarTask.setDelayTime(delayTime)
-    CountCarTask.start()
+  // 开启加载车辆总数任务
+  CountCarTask.setDelayTime(delayTime)
+  CountCarTask.start()
 }
 
 const stopLoadData = () => {
-    info.isLoadData = false
+  info.isLoadData = false
 
-    CurrentCarTask.stop()
-    CountCarTask.stop()
+  CurrentCarTask.stop()
+  CountCarTask.stop()
 }
 
 const initCharts = () => {
-    CarTypeArray.forEach((item, index) => {
-        // 顺便记录每一个key对应的下标
-        carTypeIndexMap[item.key] = index
-        tableData.value.push({
-            type: item.cnName,
-            current: 0,
-            count: 0
-        })
+  CarTypeArray.forEach((item, index) => {
+    // 顺便记录每一个key对应的下标
+    carTypeIndexMap[item.key] = index
+    tableData.value.push({
+      type: item.cnName,
+      current: 0,
+      count: 0
     })
+  })
 
-    currentChartRef.value?.draw()
-    countChartRef.value?.draw()
+  currentChartRef.value?.draw()
+  countChartRef.value?.draw()
 }
 
 onMounted(() => {
-    initCharts()
+  initCharts()
 })
 onUnmounted(() => {
-    stopLoadData()
+  stopLoadData()
 })
 defineExpose({
-    startLoadData,
-    stopLoadData
+  startLoadData,
+  stopLoadData
 })
 
 const columns = ref([
-    { title: '车型', dataIndex: 'type', key: 'type', },
-    { title: '当前画面出现车辆数', dataIndex: 'current', key: 'type', },
-    { title: '累计画面出现车辆数量', dataIndex: 'count', key: 'type', },
+  { title: '车型', dataIndex: 'type', key: 'type' },
+  { title: '当前画面出现车辆数', dataIndex: 'current', key: 'type' },
+  { title: '累计画面出现车辆数量', dataIndex: 'count', key: 'type' }
 ])
 interface TableItem {
     type: string,
@@ -182,11 +182,11 @@ interface TableItem {
 const tableData = ref(Array<TableItem>())
 
 const handleStartStatistics = () => {
-    startLoadData(info.id)
+  startLoadData(info.id)
 }
 
 const handleStopStatistics = () => {
-    stopLoadData()
+  stopLoadData()
 }
 
 </script>

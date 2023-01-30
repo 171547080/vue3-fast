@@ -29,48 +29,59 @@
   </div>
 </template>
 
-<script>
+<script name="news" setup lang="ts">
 import titleBar from "../toolBar/titleBar.vue";
+import {ref} from 'vue'
 const getAssetsFile = (url) => {
   return new URL(`../assets/${url}`, import.meta.url).href
 }
-export default {
-  name: "news",
-  components: {
-    titleBar
+
+interface picsItem {
+  url?: string | undefined
+}
+
+interface picsArray {
+  [index: number]: picsItem
+}
+
+interface contentItem {
+  title?: string | undefined,
+  time?: string | undefined
+}
+
+interface contentArray {
+  [index: number]: contentItem
+}
+
+// 图片列表
+const pics = ref<picsArray>([])
+pics.value = [
+  { url: getAssetsFile("../../../../assets/cutimg/carousel1.png") },
+  { url: getAssetsFile("../../../../assets/cutimg/carousel2.png") },
+  { url: getAssetsFile("../../../../assets/cutimg/carousel3.png") }
+]
+
+// 内容列表
+const content = ref<contentArray>([])
+content.value = [
+  {
+    title: "智慧长沙加“数前行一一长沙市数学习宪法、遵守宪法、维护宪法、据资源管理工作高质量发展侧记",
+    time: "2021-01-06"
   },
-  data() {
-    return {
-      pics: [
-        { url: getAssetsFile("../../../../assets/cutimg/carousel1.png") },
-        { url: getAssetsFile("../../../../assets/cutimg/carousel2.png") },
-        { url: getAssetsFile("../../../../assets/cutimg/carousel3.png") }
-      ],
-      content: [
-        {
-          title:
-            "智慧长沙加“数前行一一长沙市数学习宪法、遵守宪法、维护宪法、据资源管理工作高质量发展侧记",
-          time: "2021-01-06"
-        },
-        {
-          title:
-            "智慧长沙加“数前行一一长沙市数学习宪法、遵守宪法、维护宪法、据资源管理工作高质量发展侧记",
-          time: "2021-01-06"
-        },
-        {
-          title:
-            "智慧长沙加“数前行一一长沙市数学习宪法、遵守宪法、维护宪法、据资源管理工作高质量发展侧记",
-          time: "2021-01-06"
-        },
-        {
-          title:
-            "智慧长沙加“数前行一一长沙市数学习宪法、遵守宪法、维护宪法、据资源管理工作高质量发展侧记",
-          time: "2021-01-06"
-        }
-      ]
-    };
+  {
+    title: "智慧长沙加“数前行一一长沙市数学习宪法、遵守宪法、维护宪法、据资源管理工作高质量发展侧记",
+    time: "2021-01-06"
+  },
+  {
+    title: "智慧长沙加“数前行一一长沙市数学习宪法、遵守宪法、维护宪法、据资源管理工作高质量发展侧记",
+    time: "2021-01-06"
+  },
+  {
+    title: "智慧长沙加“数前行一一长沙市数学习宪法、遵守宪法、维护宪法、据资源管理工作高质量发展侧记",
+    time: "2021-01-06"
   }
-};
+]      
+
 </script>
 
 <style lang="scss" scoped>

@@ -13,8 +13,8 @@
   </div>
 </template>
 
-<script>
-export default {};
+<script name="bulletinBox" setup lang="ts">
+// do something
 </script>
 
 <style lang="scss" scoped>

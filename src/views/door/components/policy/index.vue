@@ -1,20 +1,14 @@
 <template>
   <div class="policy-content">
     <titleBar :content="'政策依据'" />
-    <policyImgBox />
+    <policy-img-box />
   </div>
 </template>
 
-<script>
+<script name="policy" setup lang="ts">
 import titleBar from "../toolBar/titleBar.vue";
 import policyImgBox from "../toolBar/policyImgBox.vue"
-export default {
-  name: "policy",
-  components: {
-    titleBar,
-    policyImgBox
-  }
-};
+
 </script>
 
 <style lang="scss" scoped>

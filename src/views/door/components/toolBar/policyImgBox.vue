@@ -23,8 +23,8 @@
   </div>
 </template>
 
-<script>
-export default {};
+<script name="policyImgBox" setup lang="ts">
+// do something
 </script>
 
 <style lang="scss" scoped>

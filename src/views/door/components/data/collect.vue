@@ -16,32 +16,38 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "Collect",
-  data() {
-    return {
-      statusBar: [
-        {
-          title: "数据资源总量",
-          data: '25,509,014'
-        },
-        {
-          title: "主题库总数",
-          data: 6616
-        },
-        {
-          title: "服务调用次数",
-          data: '355,657'
-        },
-        {
-          title: "服务系统总数",
-          data: 18
-        }
-      ]
-    };
+<script name="collect" setup lang="ts">
+
+import {ref} from "vue"
+
+
+interface StatusBarItem {
+  title?: string,
+  data?: string | number | undefined
+}
+interface StatusBarArray {
+  [index: number]: StatusBarItem
+}
+const statusBar = ref<StatusBarArray>([])
+statusBar.value = [
+  {
+    title: "数据资源总量",
+    data: '25,509,014'
+  },
+  {
+    title: "主题库总数",
+    data: 6616
+  },
+  {
+    title: "服务调用次数",
+    data: '355,657'
+  },
+  {
+    title: "服务系统总数",
+    data: 18
   }
-};
+]
+
 </script>
 
 <style lang="scss" scoped>

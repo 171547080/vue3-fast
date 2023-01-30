@@ -5,7 +5,7 @@
     </gc-modalx>
 </template>
 
-<script setup lang="ts" name="PopupVechicleTypeAdd">
+<script setup lang="ts" name="PopupVechicleTypeDelete">
 import { reactive } from 'vue'
 import { createCfg, commonConfirm, show, hide } from '@components/gc/utils/modalxUtils'
 

@@ -26,7 +26,7 @@
         </div>
     </div>
 </template>
-<script setup lang="ts">
+<script name="commonVideo" setup lang="ts">
 import { ref, onUnmounted, reactive } from 'vue';
 import { useAppStore } from "@store/index";
 import { PlayCircleOutlined } from '@ant-design/icons-vue';

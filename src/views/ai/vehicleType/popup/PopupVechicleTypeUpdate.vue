@@ -24,7 +24,7 @@
     </gc-modalx>
 </template>
 
-<script setup lang="ts" name="PopupVechicleTypeAdd">
+<script setup lang="ts" name="PopupVechicleTypeUpdate">
 import { ref, reactive } from 'vue'
 import { createCfg, handleRequest, commonSubmit, show, hide, cancel } from '@components/gc/utils/modalxUtils'
 import $vaild from '@components/js/vaild'

@@ -22,7 +22,7 @@
   </gc-modalx>
 </template>
 
-<script setup lang="ts" name="PopupVechicleTypeAdd">
+<script setup lang="ts" name="PopupVechicleTypePlay">
 import { ref, reactive } from "vue";
 import {
   createCfg,

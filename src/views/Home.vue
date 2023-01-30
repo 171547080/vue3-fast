@@ -5,7 +5,7 @@
     </div>
   </div>
 </template>
-<script lang="ts" setup>
+<script name="hone" lang="ts" setup>
 import { useUserStore } from "@store/index";
 import router  from "@/router"
 
