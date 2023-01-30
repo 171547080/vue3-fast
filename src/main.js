@@ -9,6 +9,11 @@ import gc from './components/gc/index'
 import './assets/css/reset.css'
 import 'ant-design-vue/dist/antd.css'
 
+// 动画库
+import './assets/css/animate.min.css'
+
+import animate from 'animate.css'
+
 // svg图标组件
 import svgIcon from './components/svg/index.vue'
 import './components/svg/iconfont'
@@ -16,6 +21,9 @@ import 'virtual:svg-icons-register'
 
 
 const app = createApp(App)
+
+app.use(animate)
+
 app.use(piniaStore)
 app.use(router)
 

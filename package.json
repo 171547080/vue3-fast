@@ -24,6 +24,7 @@
     "@typescript-eslint/parser": "^5.48.1",
     "@vitejs/plugin-vue": "^2.3.1",
     "@vueuse/core": "^8.9.0",
+    "animate.css": "^4.1.1",
     "ant-design-vue": "^3.2.7",
     "echarts": "^5.3.3",
     "eslint": "^8.31.0",
@@ -32,6 +33,7 @@
     "eslint-plugin-import": "^2.27.4",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.9.0",
+    "fast-glob": "^3.2.12",
     "less": "^4.1.2",
     "less-loader": "7.x",
     "moment": "^2.29.4",
@@ -48,9 +50,8 @@
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-inject-externals": "^1.1.1",
-    "vite-plugin-vue-setup-extend": "^0.4.0",
     "vite-plugin-svg-icons": "^2.0.1",
-    "fast-glob":"^3.2.12",
+    "vite-plugin-vue-setup-extend": "^0.4.0",
     "yarn": "^1.22.19"
   }
 }

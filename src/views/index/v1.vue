@@ -28,7 +28,7 @@ const bgImgUrl = `url(${getAssetsFile("../../assets/cutimg/bg.png")})`
 }
 .ad-box{
   width: 100%;
-  padding-top: 40px;
+  padding: 20px 0;
   background: url('../../assets/cutimg/bg.png');
 }
 </style>

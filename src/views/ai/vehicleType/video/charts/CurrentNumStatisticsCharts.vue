@@ -2,7 +2,7 @@
     <div ref="currentNumCharts"></div>
 </template>
 <script setup lang="ts" name="currentNumStatisticsCharts">
-import { ref, onMounted, onUnmounted, watch } from "vue"
+import { ref, onMounted, onUnmounted } from "vue"
 // 引入 echarts 核心模块，核心模块提供了 echarts 使用必须要的接口。
 import * as echarts from 'echarts/core';
 // 引入柱状图图表，图表后缀都为 Chart
@@ -89,7 +89,6 @@ defineExpose({
   draw
 })
 const formatTime = (time) => {
-  let format = '00:00'
   let hour = Math.floor(time / 60)
   let second = Math.floor(time - hour * 60)
   return (hour > 10 ? hour : "0" + hour) + " : " + (second > 10 ? second : "0" + second)

@@ -57,7 +57,7 @@ const info = reactive({
  * 加载当前通过画面车辆识别数据方法
  */
 const loadCurrentCarData = () => {
-  return new Promise((resolve, rejct) => {
+  return new Promise((resolve) => {
     vehicleTypeApi.current(info.id, 1).then((res) => {
       if (res.data && res.data.list) {
         const table = tableData.value
@@ -86,7 +86,7 @@ const loadCurrentCarData = () => {
  * 加载当前通过画面车辆总数方法
  */
 const loadCountCarData = () => {
-  return new Promise((resolve, rejct) => {
+  return new Promise((resolve) => {
     vehicleTypeApi.statistics(info.id, 1).then((res) => {
       info.operationTime = dateFormat(res.data.operationTime)
 

@@ -65,7 +65,7 @@ const draw = () => {
       server.data = []
 
       list.forEach((item, index) => {
-        const tmp = item as TableItem
+  
         const model = {
           value: 0,
           itemStyle: {
@@ -91,7 +91,6 @@ const draw = () => {
 }
 
 const formatTime = (time) => {
-  let format = '00:00'
   let hour = Math.floor(time / 60)
   let second = Math.floor(time - hour * 60)
   return (hour > 10 ? hour : "0" + hour) + " : " + (second > 10 ? second : "0" + second)
