@@ -2,113 +2,131 @@
     <div class="topic-warp">
         <div class="topic">
             <div class="topic-left">
-                <Logo></Logo>
+                <logo></logo>
                 <span class="title">{{ CONFIG.appName }}</span>
             </div>
             <div class="topic-middle">
                 <div class="server-info">
-                    <div class="server-text" :class="{ active: isIndexServer }" @click="indexClickHandle">{{ "首页" }}
-                        <CaretDownOutlined v-show="false" style="color:#fff;margin: 6px 5px;" />
+                    <div class="server-text" :class="{ active: activeServerName === 'index' }"
+                        @click="serverClickHandle('indexV1')">
+                        {{ "首页" }}
+                        <CaretDownOutlined v-show="false" style="color: #fff; margin: 6px 5px" />
                     </div>
                 </div>
 
-                <div class="server-info ">
-                    <div class="server-text" :class="{ active: isAiServer }" @click="serverClickHandle">{{ "服务" }}
-                        <CaretDownOutlined style="color:#fff;margin: 6px 5px;" />
-                    </div>
+                <div class="server-info">
+                    <a-dropdown>
+                        <div class="server-text" :class="{ active: activeServerName === 'server' }"
+                            @click="serverClickHandle('AI')">
+                            {{ "服务" }}
+                            <caret-down-outlined style="color: #fff; margin: 6px 5px" />
+                        </div>
+
+                        <template #overlay>
+                        <a-menu>
+                            <a-menu-item key="1">
+                                <user-outlined class="margin-right-10" />
+                                服务1
+                            </a-menu-item>
+                            <a-menu-item key="2">
+                                <form-outlined class="margin-right-10" />
+                                服务2
+                            </a-menu-item>
+                            <a-menu-item key="3">
+                                <dot-chart-outlined class="margin-right-10"/>
+                                服务3
+                            </a-menu-item>
+                        </a-menu>
+                    </template>
+                    </a-dropdown>
                 </div>
 
-        
-                <div class="server-info" v-if="false">
-                    <div class="server-text" :class="{ active: isSystemServer }" @click="systemClickHandle">{{ "系统管理" }}
-                        <CaretDownOutlined v-show="false" style="color:#fff;margin: 6px 5px;" />
+                <div class="server-info">
+                    <div class="server-text" :class="{ active: activeServerName === 'system' }"
+                        @click="serverClickHandle('System')">
+                        {{ "系统管理" }}
+                        <caret-down-outlined v-show="false" style="color: #fff; margin: 6px 5px" />
                     </div>
                 </div>
             </div>
             <div class="topic-right">
                 <a-dropdown>
+                    <div class="user-info">
+                        <div class="user-text">
+                            {{ userStore.realName || userStore.loginName || "加载中" }}
+                            <caret-down-outlined style="color: #fff; margin: 6px 5px" />
+                        </div>
+                    </div>
+
                     <template #overlay>
                         <a-menu>
                             <a-menu-item key="1" v-if="false">
-                                <UserOutlined style="margin-right: 10px;" />
+                                <user-outlined class="margin-right-10" />
                                 个人信息
                             </a-menu-item>
                             <a-menu-item key="2" v-if="false">
-                                <FormOutlined style="margin-right: 10px;" />
+                                <form-outlined class="margin-right-10" />
                                 忘记密码
                             </a-menu-item>
                             <a-menu-item key="3" @click="logoutClickHandle">
-                                <LogoutOutlined style="margin-right: 10px;" />
+                                <logout-outlined class="margin-right-10" />
                                 退出登录
                             </a-menu-item>
                         </a-menu>
                     </template>
-                    <div class="user-info">
-                        <div class="user-text">{{ userStore.realName || userStore.loginName || '加载中' }}
-                            <CaretDownOutlined style="color:#fff;margin: 6px 5px;" />
-                        </div>
-                    </div>
                 </a-dropdown>
             </div>
         </div>
     </div>
 </template>
 <script setup lang="ts">
-import { CaretDownOutlined, UserOutlined, LogoutOutlined, FormOutlined } from '@ant-design/icons-vue';
-import Logo from '@/components/ifram/i-logo.vue'
-import { defineComponent, ref, onMounted } from 'vue';
-import { useUserStore } from "@store/index"
-import router from "@/router"
-import CONFIG from "@/config"
+import {
+  CaretDownOutlined,
+  UserOutlined,
+  LogoutOutlined,
+  FormOutlined,
+  DotChartOutlined 
+} from "@ant-design/icons-vue";
+import Logo from "@/components/ifram/i-logo.vue";
+import { defineComponent, ref, onMounted } from "vue";
+import { useUserStore } from "@store/index";
+import router from "@/router";
+import CONFIG from "@/config";
 defineComponent({
   Logo
-})
-const userStore = useUserStore()
-const isAiServer = ref(false)
-const isSystemServer = ref(false)
-const isIndexServer = ref(false)
+});
+const userStore = useUserStore();
+const activeServerName = ref("index");
 
 // 激活当前菜单
-const checkCurrentServer = (newUrl?:string) => {
-  const url = newUrl || router.currentRoute.value.fullPath
+const checkCurrentServer = (newUrl?: string) => {
+  const url = newUrl || router.currentRoute.value.fullPath;
   // 路由固定配置  /ai/ 地址 为 AI服务    /system/ 地址为 系统管理
-  isAiServer.value = url.indexOf('/ai/') > -1
-  isSystemServer.value = url.indexOf('/system/') > -1
-  isIndexServer.value = url.indexOf('/index/') > -1
-}
-
+  activeServerName.value = url.indexOf("/ai/") > -1 ? "ai" : "";
+  activeServerName.value = url.indexOf("/system/") > -1 ? "system" : "";
+  activeServerName.value = url.indexOf("/index/") > -1 ? "index" : "";
+};
 
 onMounted(() => {
-  checkCurrentServer(window.location.href)
-})
+  checkCurrentServer(window.location.href);
+});
 
 const logoutClickHandle = () => {
   userStore.logout().then(() => {
-    userStore.checkLogin()
+    userStore.checkLogin();
   });
-}
+};
 
-// 首页链接
-const indexClickHandle = () => {
-  router.push({ name: 'indexV1' }).then(() => {
-    checkCurrentServer()
-  })
-}
-
-// 服务链接
-const serverClickHandle = () => {
-  router.push({ name: 'AI' }).then(() => {
-    checkCurrentServer()
-  })
-}
-// 系统链接
-const systemClickHandle = () => {
-  router.push({ name: 'System' }).then(() => {
-    checkCurrentServer()
-  })
-}
+const serverClickHandle = (routerName) => {
+  router.push({ name: routerName }).then(() => {
+    checkCurrentServer();
+  });
+};
 </script>
 <style lang="less" scoped>
+.margin-right-10{
+    margin-right: 10px
+}
 .topic-warp {
     // background: #000;
     background: linear-gradient(90deg, #000, #555, #000);
@@ -124,6 +142,7 @@ const systemClickHandle = () => {
     overflow: hidden; //对溢出内容的隐藏
     white-space: nowrap; //只保留一个空白，文本不会换行，会在在同一行上继续，直到遇到br标签为止。
     text-overflow: ellipsis //使得超出部分用“ … ”代替
+    ;
 }
 
 .topic {
@@ -151,7 +170,7 @@ const systemClickHandle = () => {
                 font-size: 15px;
                 font-weight: bold;
                 padding: 15px 15px 15px 25px;
-                transition: background .3;
+                transition: background 0.3;
                 height: 100%;
                 cursor: pointer;
 
@@ -186,7 +205,7 @@ const systemClickHandle = () => {
             font-size: 18px;
             font-weight: bold;
             padding: 15px 15px 15px 25px;
-            transition: background .3;
+            transition: background 0.3;
             height: 100%;
             cursor: pointer;
 

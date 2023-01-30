@@ -190,7 +190,7 @@ export default defineComponent({
 .open-btn {
   position: absolute;
   z-index: 999;
-  top: 3px;
+  top: -53px;
   left: 5px;
   border: 0;
   background: transparent;
