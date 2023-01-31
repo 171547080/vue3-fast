@@ -1,3 +1,8 @@
+<!--
+ * @Description: 首页
+ * @Author: laigt
+ * @Date: 2023-01-31
+-->
 <template>
   <div class="door-index">
     <inform />

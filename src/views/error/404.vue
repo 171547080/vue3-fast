@@ -1,3 +1,8 @@
+<!--
+ * @Description: 框架-404页面
+ * @Author: laigt
+ * @Date: 2023-01-31
+-->
 <template>
   <div class="wscn-http404-container">
     <div class="wscn-http404">

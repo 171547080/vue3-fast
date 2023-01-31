@@ -1,3 +1,8 @@
+<!--
+ * @Description: 首页V1
+ * @Author: laigt
+ * @Date: 2023-01-31
+-->
 <template>
   <div>
     <div class="ad-box">

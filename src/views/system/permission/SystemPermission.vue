@@ -1,3 +1,8 @@
+<!--
+ * @Description: 系统管理-权限列表
+ * @Author: laigt
+ * @Date: 2023-01-31
+-->
 <template>
     <div>权限列表</div>
     <div>开发中</div>

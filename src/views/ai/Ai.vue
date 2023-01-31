@@ -1,3 +1,8 @@
+<!--
+ * @Description: AI页面
+ * @Author: laigt
+ * @Date: 2023-01-31
+-->
 <template>
     <inner-frame>
         <template #left>

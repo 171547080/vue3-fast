@@ -1,3 +1,8 @@
+<!--
+ * @Description: 组件-登陆认证过度动画
+ * @Author: laigt
+ * @Date: 2023-01-31
+-->
 <template>
     <div class="logining-panel" :class="{ visible: visible, expand: expand }" ref="loginingRef">
         <div style="position: relative">

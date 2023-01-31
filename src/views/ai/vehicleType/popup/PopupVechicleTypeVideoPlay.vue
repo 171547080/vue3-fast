@@ -1,3 +1,8 @@
+<!--
+ * @Description: 弹出框-车型识别-播放操作
+ * @Author: laigt
+ * @Date: 2023-01-31
+-->
 <template>
   <gc-modalx v-model:show="cfg.show" v-model:submitting="cfg.submitting" v-model:cancelText="cfg.cancelText"
     v-model:okText="cfg.okText" title="播放" @on-ok="handelSubmit" @on-cancel="handelCancel">

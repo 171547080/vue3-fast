@@ -1,3 +1,8 @@
+<!--
+ * @Description: 框架-APP入口
+ * @Author: laigt
+ * @Date: 2023-01-31
+-->
 <template>
   
     <outer-frame>

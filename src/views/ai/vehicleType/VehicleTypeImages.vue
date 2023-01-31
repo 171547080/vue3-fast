@@ -1,3 +1,8 @@
+<!--
+ * @Description: 车型识别-详情（图像）
+ * @Author: laigt
+ * @Date: 2023-01-31
+-->
 <template>
     <a-spin :spinning="spinning" size="large">
         <div class="content-warp">

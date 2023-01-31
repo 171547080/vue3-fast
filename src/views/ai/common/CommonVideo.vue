@@ -1,3 +1,8 @@
+<!--
+ * @Description: 组件-RTSP直播流播放组件
+ * @Author: laigt
+ * @Date: 2023-01-31
+-->
 <template>
     <div class="video-box">
         <!-- <button @click="handelClose">关闭播放</button> -->

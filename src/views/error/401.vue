@@ -1,3 +1,8 @@
+<!--
+ * @Description: 框架-401页面
+ * @Author: laigt
+ * @Date: 2023-01-31
+-->
 <template>
   <div class="errPage-container">
     <a-button class="pan-back-btn" @click="back">

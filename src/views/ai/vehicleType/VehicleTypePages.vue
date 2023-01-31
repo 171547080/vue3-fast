@@ -1,3 +1,8 @@
+<!--
+ * @Description: 车型识别-列表
+ * @Author: laigt
+ * @Date: 2023-01-31
+-->
 <template>
   <div class="desc">
     <p>

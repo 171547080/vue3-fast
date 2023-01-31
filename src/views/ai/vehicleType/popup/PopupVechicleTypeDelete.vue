@@ -1,3 +1,8 @@
+<!--
+ * @Description: 弹出框-车型识别-删除
+ * @Author: laigt
+ * @Date: 2023-01-31
+-->
 <template>
     <gc-modalx v-model:show="cfg.show" v-model:submitting="cfg.submitting" title="是否删除车型识别" @on-ok="handelSubmit"
         :confirm="true">
