@@ -75,9 +75,10 @@ export default defineConfig(({command, mode}) => {
       },
 
       // 为开发服务器配置 CORS。默认启用并允许任何源
-      cors: false,
+      cors: true
+      // 关掉指定跨域限制
       // 设置origin
-      origin: "http://127.0.0.1:8080/"
+      // origin: "http://127.0.0.1:8080/"
     },
     css: {
       // css预处理器

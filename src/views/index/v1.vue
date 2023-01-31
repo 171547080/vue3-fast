@@ -16,7 +16,6 @@ import viewIndex from "@/views/door/index.vue";
 import StatusBar from "../door/components/status-bar/index.vue"
 import BottomBar from "../door/components/bottom-bar/index.vue"
 
-// vite 热更新模式  会出现图片资源路径拼接上[http://127.0.0.1:8080//src/]
 const bgImgUrl = `url(${bg})`
 </script>
 
