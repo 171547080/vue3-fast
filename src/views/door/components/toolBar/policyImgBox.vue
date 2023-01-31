@@ -6,7 +6,7 @@
       :style="{ marginLeft: index !== 0 ? '19px' : 0 }"
     >
       <div class="img">
-        <img src="../../../../assets/cutimg/carousel1.png" alt="" />
+        <img :src="bgImg" alt="" />
       </div>
       <div class="content">
         <p class="content-title">
@@ -25,6 +25,7 @@
 
 <script name="policyImgBox" setup lang="ts">
 // do something
+const bgImg= '../../../img/inside/carousel1.png'
 </script>
 
 <style lang="scss" scoped>

@@ -1,27 +1,27 @@
 <template>
   <div class="door-index">
     <inform />
-    <transition name="fade" enter-active-class="animated animate__backInLeft"
-      leave-active-class="animated  animate__backOutLeft">
+    <transition name="fade" enter-active-class="animate__animated animate__backInLeft"
+      leave-active-class="animate__animated  animate__backOutLeft">
       <div class="data" v-show="true">
         <collect />
         <histogram />
       </div>
     </transition>
-    <transition name="fade" enter-active-class="animated animate__backInRight "
-      leave-active-class="animated animate__backOutRight">
+    <transition name="fade" enter-active-class="animate__animated animate__backInRight "
+      leave-active-class="animate__animated animate__backOutRight">
       <div class="news" v-show="animateStatus.newsShow">
         <news />
       </div>
     </transition>
-    <transition name="fade" enter-active-class="animated animate__backInLeft"
-      leave-active-class="animated animate__backOutLeft">
+    <transition name="fade" enter-active-class="animate__animated animate__backInLeft"
+      leave-active-class="animate__animated animate__backOutLeft">
       <div class="policy" v-show="animateStatus.policyShow">
         <policy />
       </div>
     </transition>
-    <transition name="fade" enter-active-class="animated animate__backInRight"
-      leave-active-class="animated animate__backOutRight">
+    <transition name="fade" enter-active-class="animate__animated animate__backInRight"
+      leave-active-class="animate__animated animate__backOutRight">
       <div class="bulletin" v-show="animateStatus.bulletinShow">
         <bulletin />
       </div>

@@ -7,7 +7,7 @@ import gc from './components/gc/index'
 
 
 import './assets/css/reset.css'
-import 'ant-design-vue/dist/antd.css'
+import 'ant-design-vue/dist/antd.min.css'
 
 // 动画库
 import './assets/css/animate.min.css'
