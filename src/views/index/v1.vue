@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="ad-box" :style="{'background':bgImgUrl}">
+    <div class="ad-box">
       <status-bar></status-bar>
     </div>
     <div class="warp">
@@ -11,12 +11,10 @@
 </template>
 
 <script name="indexV1" setup lang="ts">
-import bg from '@assets/cutimg/bg.png'
 import viewIndex from "@/views/door/index.vue";
 import StatusBar from "../door/components/status-bar/index.vue"
 import BottomBar from "../door/components/bottom-bar/index.vue"
 
-const bgImgUrl = `url(${bg})`
 </script>
 
 <style lang="less" scoped>
@@ -27,6 +25,6 @@ const bgImgUrl = `url(${bg})`
 .ad-box {
   width: 100%;
   padding: 20px 0;
-  background: url('../../assets/cutimg/bg.png');
+  background: url('../../../img/inside/bg.png');
 }
 </style>
