@@ -6,9 +6,9 @@
     </div>
 </template>
 <script lang="ts" setup>
-const address = '中国湖南省长沙市湘江新区管委会办公室'
-const sponsor = '长沙市湘江新区管委会'
-const right = '湘公网安备43019002000506湘ICP备06004882号网站标识码：4301000018站点地图|联系我们'
+const address = 'XXXXXX管委会办公室'
+const sponsor = 'XXXXXXX管委会'
+const right = 'XX网安备4301XXXX湘ICP备060XXXX号网站标识码：43XXXXX8站点地图|联系我们'
 </script>
 
 <style lang="less">
