@@ -4,14 +4,14 @@
  * @Date: 2023-01-31
 -->
 <template>
-    <div class="logining-panel" :class="{ visible: visible, expand: expand }" ref="loginingRef">
+    <div ref="loginingRef" class="logining-panel" :class="{ visible: visible, expand: expand }">
         <div style="position: relative">
             <div class="loader">
                 <!--spin动画class name “ball-clip-rotate-multiple”-->
                 <div class="loader-inner ball-clip-rotate-multiple">
-                    <div class="ball-outter1" />
-                    <div class="ball-outter2" />
-                    <div class="ball-inner" />
+                    <div class="ball-outter1"></div>
+                    <div class="ball-outter2"></div>
+                    <div class="ball-inner"></div>
                 </div>
             </div>
             <p class="word">
@@ -32,12 +32,12 @@ const props = defineProps({
   },
   status: {
     type: String,
-    default: 'loading'   // 限制输入内容 'loading','success','error','timeout'
+    default: 'loading' // 限制输入内容 'loading','success','error','timeout'
   }
 })
 
 const loginingRef = ref(null)
-const authStatus = ref("认证中")
+const authStatus = ref('认证中')
 const visible = ref(false)
 const expand = ref(false)
 
@@ -90,8 +90,6 @@ const hidelLogining = () => {
     expand.value = false
   })
 }
-
-
 
 defineExpose({
   showLogining,

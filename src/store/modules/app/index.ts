@@ -1,3 +1,9 @@
+/*
+ * @Description: 全局状态管理-APP内容定义状态
+ * @Author: laigt
+ * @Date: 2023-02-2
+*/
+
 import { defineStore } from 'pinia'
 import { get } from '@api/axios'
 

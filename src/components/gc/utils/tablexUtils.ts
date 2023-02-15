@@ -17,8 +17,8 @@ export interface TablexCfgParamType {
   data?: Array<any>;
   errorMessage?: string;
   noDataText?: string;
-  handleRequest?:  Function
-  handleResponse?:  Function
+  handleRequest?: Function
+  handleResponse?: Function
 }
 
 /**
@@ -38,14 +38,14 @@ export interface TablexCfgType {
   data: Array<any>;
   errorMessage?: string;
   noDataText?: string;
-  handleRequest?:  Function
-  handleResponse?:  Function
+  handleRequest?: Function
+  handleResponse?: Function
 }
 
 /**
  * 请求前最后处理一次请求数据-data
- * @param data 
- * @returns 
+ * @param data
+ * @returns
  */
 export function handleRequest(data: Object): Object {
   return data
@@ -66,85 +66,90 @@ const defaultCfg: TablexCfgType = {
   // 请求前请求数据处理（data）=>{ return data}
   handleRequest,
   handleResponse: undefined
-};
+}
 
 export function createCfg(cfg: TablexCfgParamType): TablexCfgType {
-  const result = Object.assign({}, defaultCfg, cfg);
-  return result;
+  const result = Object.assign({}, defaultCfg, cfg)
+  return result
 }
 
 const requestApi = (cfg: TablexCfgType) => {
-  cfg.errorMessage = "";
-  cfg.params["pageNo"] = cfg.pageNo;
-  cfg.params["pageSize"] = cfg.pageSize;
+  cfg.errorMessage = ''
+  cfg.params.pageNo = cfg.pageNo
+  cfg.params.pageSize = cfg.pageSize
 
-  
   const requestData = cfg.handleRequest ? cfg.handleRequest(cfg.params) || cfg.params : cfg.params
   return new Promise((resolve, reject) => {
     cfg
       .api(requestData)
       .then((res) => {
-        const data = res.data;
+        // const data = res.data
+        const data = res
 
         if (data && Array.isArray(data.list)) {
-          cfg.data = data.list;
+          cfg.data = data.list
         }
-        cfg.pageNo = data.pageNo ? data.pageNo : cfg.pageNo;
-        cfg.pageSize = data.pageSize ? data.pageSize : cfg.pageSize;
+
+        if (data && Array.isArray(data.rows)) {
+          cfg.data = data.rows
+        }
+
+        cfg.pageNo = data.pageNo ? data.pageNo : cfg.pageNo
+        cfg.pageSize = data.pageSize ? data.pageSize : cfg.pageSize
 
         const total = data.total || data.totalCount
 
-        cfg.total = total ? total : cfg.total;
+        cfg.total = total || cfg.total
         resolve(res)
       })
       .catch((error) => {
-        cfg.errorMessage = error.message;
+        cfg.errorMessage = error.message
         reject(error)
-      });
+      })
   })
-};
+}
 
 export function serach(cfg: TablexCfgType) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   return new Promise((resolve, reject) => {
-    cfg.loading = true;
-    cfg.pageNo = 1;
+    cfg.loading = true
+    cfg.pageNo = 1
     if (cfg.api) {
       requestApi(cfg).then((res) => {
-        cfg.loading = false;
+        cfg.loading = false
 
         // 执行处理请求方法
-        if (cfg.handleResponse){
+        if (cfg.handleResponse) {
           cfg.handleResponse(cfg, res)
         }
 
         resolve(res)
       }).catch(() => {
-        cfg.loading = false;
-      });
+        cfg.loading = false
+      })
     }
   })
 }
 
 export function refresh(cfg: TablexCfgType) {
   return new Promise((resolve, reject) => {
-    cfg.loading = true;
+    cfg.loading = true
     if (cfg.api) {
       requestApi(cfg).then((res) => {
-        cfg.loading = false;
+        cfg.loading = false
 
         // 执行处理请求方法
-        if (cfg.handleResponse){
+        if (cfg.handleResponse) {
           cfg.handleResponse(cfg, res)
         }
 
         resolve(res)
       }).catch((error) => {
         reject(error)
-        cfg.loading = false;
-      });
+        cfg.loading = false
+      })
     }
   })
 }
 
-export default { createCfg, serach, refresh };
+export default { createCfg, serach, refresh }

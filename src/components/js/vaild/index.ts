@@ -1,18 +1,19 @@
 import required from './required'
 import maxLength from './maxLength'
 import number from './number'
-import network from './network';
-import type { Rule } from 'ant-design-vue/es/form';
+import network from './network'
+import type { Rule } from 'ant-design-vue/es/form'
 
 /**
  * 提供支持多个vaild校验规则同时生效的方法
  * @param vailds 校验列表
- * @returns 
+ * @returns
  */
 function queue(vailds: Array<any>) {
   if (!vailds.length) {
+    // eslint-disable-next-line no-unused-expressions
     async () => {
-      return Promise.resolve();
+      return Promise.resolve()
     }
   }
 
@@ -30,14 +31,14 @@ function queue(vailds: Array<any>) {
       return Promise.resolve()
     }).catch((error) => {
       console.error(error)
-      return Promise.reject(error);
+      return Promise.reject(error)
     })
   }
 }
 
 function isPromise(obj) {
-  return !!obj  //有实际含义的变量才执行方法，变量null，undefined和''空串都为false
-        && (typeof obj === 'object' || typeof obj === 'function') // 初始promise 或 promise.then返回的
-        && typeof obj.then === 'function';
+  return !!obj && // 有实际含义的变量才执行方法，变量null，undefined和''空串都为false
+        (typeof obj === 'object' || typeof obj === 'function') && // 初始promise 或 promise.then返回的
+        typeof obj.then === 'function'
 }
 export default { queue, ...required, ...maxLength, ...number, ...network }

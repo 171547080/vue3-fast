@@ -1,3 +1,9 @@
+/*
+ * @Description: 树型结构数组工机具
+ * @Author: laigt
+ * @Date: 2023-02-2
+*/
+
 // 获取树节点的父级所有节点   parentKey=父级节点key
 export function getParentNodeToArray(node, parentKey = 'parentNode') {
   let result = new Array<any>()
@@ -25,15 +31,15 @@ export function recursiveFindItem(tree, key, value, parent = null) {
   tree.forEach((item) => {
     if (item && item[key] === value) {
       // 记录父级节点信息
-      item['parentNode'] = parent
+      item.parentNode = parent
       result.push(item)
     }
     if (item.children && item.children.length) {
       const childrenItems = recursiveFindItem(item.children, key, value, item)
       result = result.concat(childrenItems)
     }
-  });
+  })
   return result
 }
 
-export default { getParentNodeToArray, recursiveFindItem}
+export default { getParentNodeToArray, recursiveFindItem }

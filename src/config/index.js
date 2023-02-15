@@ -1,6 +1,9 @@
-/**
- * 环境配置
- */
+/*
+ * @Description: 项目配置-自定义全局变量定义
+ * @Author: laigt
+ * @Date: 2023-02-2
+*/
+
 import {
   API_MOCK,
   API_BASE_URL,
@@ -13,8 +16,8 @@ import {
   DEFAULT_IMG_URL,
   APP_NAME,
   ROUTER_MODE
-} from "./constant";
-const env = ENV_MODE || "prod";
+} from './constant'
+const env = ENV_MODE || 'prod'
 const CONFIG = {
   env,
   ENV,
@@ -26,7 +29,7 @@ const CONFIG = {
   error404Url: ERROR_404_IMG_URL,
   defaultUrl: DEFAULT_IMG_URL,
   appName: APP_NAME,
-  ROUTER_MODE: ROUTER_MODE
-};
+  ROUTER_MODE
+}
 
-export default CONFIG;
+export default CONFIG

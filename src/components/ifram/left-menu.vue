@@ -1,19 +1,30 @@
 <template>
   <div>
-    <a-button class="open-btn" @click="toggleCollapsed">
-      <MenuUnfoldOutlined v-if="collapsed" />
-      <MenuFoldOutlined v-else />
+    <a-button v-show="false" class="open-btn" @click="toggleCollapsed">
+      <menu-unfold-outlined v-if="collapsed" />
+      <menu-fold-outlined v-else />
     </a-button>
-    <a-menu class="menu" v-model:openKeys="openKeys" v-model:selectedKeys="selectedKeys" mode="inline" theme="dark"
-      :inline-collapsed="collapsed">
-      <template v-for="(d) in newMenus">
+    <a-menu
+      v-model:openKeys="openKeys"
+      v-model:selectedKeys="selectedKeys"
+      class="menu"
+      mode="inline"
+      theme="dark"
+      :inline-collapsed="collapsed"
+      :style="{width:menusWidth}"
+    >
+      <template v-for="d in newMenus">
         <template v-if="d.children && d.children.length">
           <a-sub-menu :key="d.name">
             <template #icon>
               <component :is="d.icon" class="icon" />
             </template>
             <template #title>{{ d.title }}</template>
-            <a-menu-item v-for="subItem in d.children" :key="subItem.name" @click="hangleMenuItemClick(subItem)">
+            <a-menu-item
+              v-for="subItem in d.children"
+              :key="subItem.name"
+              @click="hangleMenuItemClick(subItem)"
+            >
               {{ subItem.title }}
             </a-menu-item>
           </a-sub-menu>
@@ -29,7 +40,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, toRefs, watch, ref } from 'vue';
+import { defineComponent, reactive, toRefs, watch, ref, computed } from 'vue'
 import { recursiveFindItem, getParentNodeToArray } from '../../utils/tree'
 // 暂时按照meuns中配置的图标按需引入
 import {
@@ -44,15 +55,15 @@ import {
   UserOutlined,
   FlagOutlined,
   AuditOutlined
-} from '@ant-design/icons-vue';
-import router from '@/router';
+} from '@ant-design/icons-vue'
+import router from '@/router'
 
 import { MeunItemType, MeunType } from './type/LeftMenu'
 interface MenusState {
-  collapsed: boolean,
-  selectedKeys: Array<string>,
-  openKeys: Array<string>,
-  preOpenKeys: Array<string>,
+  collapsed: boolean;
+  selectedKeys: Array<string>;
+  openKeys: Array<string>;
+  preOpenKeys: Array<string>;
 }
 
 /**
@@ -60,51 +71,41 @@ interface MenusState {
  * @param router router对象
  * @param url url
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getRouterName = (router, includeUrl:string) => {
-  const result:Array<string> = []
-  if (router && router.getRoutes){
-    router.getRoutes().forEach(r => {
-      if (r.path.indexOf(includeUrl)){
-        result.push(r.name)
-      }
-    });
-  }
-  
-  return result
-}
 
-const handleRouterChange = (state: MenusState, menus: Array<MeunType>, router) => {
+// const getRouterName = (router, includeUrl: string) => {
+//   const result: Array<string> = []
+//   if (router && router.getRoutes) {
+//     router.getRoutes().forEach((r) => {
+//       if (r.path.indexOf(includeUrl)) {
+//         result.push(r.name)
+//       }
+//     })
+//   }
+
+//   return result
+// }
+
+const handleRouterChange = (
+  state: MenusState,
+  menus: Array<MeunType>,
+  router
+) => {
   // 获取当前路由名称
   const currentRouterName = router.currentRoute.value.name
 
-  /*
-  // 从路由中获取服务条件的routerName
-  const currentRouterUrl= router.currentRoute.value.url
-  const routerNames = getRouterName(router, currentRouterUrl)
-
-  const openKeysMap = {}
-
-  // 遍历routerNames 以及 menusList 获取路由对应的菜单名称
-  routerNames.forEach((routerName) => {
-    const menusList = recursiveFindItem(menus, 'routerName', routerName)
-    menusList.forEach((m) => {
-      openKeysMap[m.name] = m.name
-    })
-  })
-  console.error(openKeysMap)
-*/
+  // 根据路由名称获取当前激活的菜单项 - 按照路由名称查询
   const handleMeuns = recursiveFindItem(menus, 'routerName', currentRouterName)
 
-  
   if (!handleMeuns || !handleMeuns.length) {
     return
   }
   const currentMeun = handleMeuns[0]
- 
-  
+
   // 菜单树中，展开所有父节点
-  const openKeys = getParentNodeToArray(currentMeun.parentNode, 'parentNode').map(item => item.name)
+  const openKeys = getParentNodeToArray(
+    currentMeun.parentNode,
+    'parentNode'
+  ).map((item) => item.name)
 
   // 修改对应state中的状态
   state.selectedKeys = [currentMeun.name]
@@ -129,18 +130,24 @@ export default defineComponent({
     // menus 为 Array<MeunType> 格式
     menus: {
       type: Array,
-      default: () => { [] }
+      default: () => {
+        return []
+      }
+    },
+    width: {
+      type: Number,
+      default: 200
     }
   },
   setup(props) {
     const newMenus = ref(props.menus as Array<MeunType>)
-
+    const menusWidth = computed(() => { return props.width + 'px' })
     const state = reactive({
       collapsed: false,
       selectedKeys: [''],
       openKeys: [''],
       preOpenKeys: ['']
-    });
+    })
 
     handleRouterChange(state, newMenus.value, router)
 
@@ -149,20 +156,22 @@ export default defineComponent({
       () => router.currentRoute.value.path,
       () => {
         handleRouterChange(state, newMenus.value, router)
-      }, { immediate: true })
+      },
+      { immediate: true }
+    )
 
     // 监听展开栏内容，记录当前展开状态，缩放菜单栏时恢复原来状态
     watch(
       () => state.openKeys,
       (_val, oldVal) => {
-        state.preOpenKeys = oldVal;
+        state.preOpenKeys = oldVal
       }
-    );
+    )
 
     const toggleCollapsed = () => {
-      state.collapsed = !state.collapsed;
-      state.openKeys = state.collapsed ? [] : state.preOpenKeys;
-    };
+      state.collapsed = !state.collapsed
+      state.openKeys = state.collapsed ? [] : state.preOpenKeys
+    }
 
     // 菜单路由跳转
     const hangleMenuItemClick = (meunItem: MeunItemType) => {
@@ -172,25 +181,25 @@ export default defineComponent({
     }
     return {
       newMenus,
+      menusWidth,
       ...toRefs(state),
       toggleCollapsed,
       hangleMenuItemClick
-    };
+    }
   }
-});
+})
 </script>
 <style lang="less" scoped>
-@ant-menu-item-width : 150px;
-@ant-menu-sub-item-width : @ant-menu-item-width - 20px;
+
 .ant-menu {
   height: 100%;
-  font-weight: bold;
+  // font-weight: bold;
 }
 
 .open-btn {
   position: absolute;
   z-index: 999;
-  top: -53px;
+  top: -58px;
   left: 5px;
   border: 0;
   background: transparent;
@@ -199,17 +208,37 @@ export default defineComponent({
   width: 55px;
   height: 55px;
   vertical-align: baseline;
-  background: #001529;
+  background: transparent;
+}
+
+.menu {
+  // background: #32323a;
+  padding-top: 5px;
+  font-size: 16px;
 }
 
 .ant-menu {
   :deep(.ant-menu-submenu-title > .ant-menu-title-content) {
     padding-right: 10px;
-    width: @ant-menu-sub-item-width;
   }
+
   :deep(.ant-menu-item > .ant-menu-title-content) {
     padding-right: 10px;
-    width: @ant-menu-item-width;
+  }
+
+  :deep(.ant-menu-dark .ant-menu-item){
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin: 0;
+    border: solid #35353d 1px;
+  }
+  :deep(.ant-menu-dark .ant-menu-item){
+    color: #fff;
+  }
+
+  // 覆盖不了
+  :deep(.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected) {
+    background: #386cbd;
   }
 }
 

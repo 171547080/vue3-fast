@@ -1,11 +1,17 @@
 <template>
     <div ref="globalModal">
-        <a-modal v-model:visible="visible" :getContainer="() => globalModal" :okText="props.okText"
-            :class="{ modal: !props.confirm }" :cancel-text="props.cancelText" @ok="handleOk" @cancel="handelCancel"
+        <a-modal v-model:visible="visible"
+            :getContainer="() => globalModal"
+            :okText="props.okText"
+            :class="{ modal: !props.confirm }"
+            :cancel-text="props.cancelText"
             :ok-button-props="{ disabled: props.submitting, loading: props.submitting }"
-            :cancel-button-props="{ disabled: props.submitting, loading: props.submitting }" :destroyOnClose="true">
-
-            <template #title v-if="!props.confirm">
+            :cancel-button-props="{ disabled: props.submitting, loading: props.submitting }"
+            :destroyOnClose="true"
+            @ok="handleOk"
+            @cancel="handelCancel"
+            >
+            <template v-if="!props.confirm" #title>
                 <div ref="modalTitleRef" class="modal-title">{{ props.title }}</div>
             </template>
 
@@ -30,15 +36,13 @@
 </template>
 <script setup lang="ts" name="modalx">
 import { ref, watch } from 'vue'
-import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
-const emit = defineEmits<{
-    (e: 'onOk', event: any): void,
+import { ExclamationCircleOutlined } from '@ant-design/icons-vue'
+const emit = defineEmits<{(e: 'onOk', event: any): void,
     (e: 'onCancel', event: any): void,
     (e: 'update:show', value: any): void,
 }>()
 const globalModal = ref()
 const visible = ref<boolean>(false)
-
 
 // 同步 props.show 与 visible 的属性
 watch(() => props.show, (value) => {
@@ -46,9 +50,8 @@ watch(() => props.show, (value) => {
 })
 
 watch(() => visible.value, (value) => {
-  emit("update:show", value);
+  emit('update:show', value)
 })
-
 
 const props = defineProps({
   show: {
@@ -81,23 +84,33 @@ const props = defineProps({
     default: false
   }
 })
+/**
+ * 显示
+ */
 const show = () => {
   visible.value = true
 }
 
+/**
+ * 隐藏
+ */
 const hide = () => {
   visible.value = false
 }
 
-const handleOk = ((e?: any) => {
+/**
+ * 点击确认后处理方法
+ */
+const handleOk = (e?: any) => {
   emit('onOk', e)
-})
-const handelCancel = ((e?: any) => {
+}
+/**
+ * 取消后处理方法
+ */
+const handelCancel = (e?: any) => {
   hide()
   emit('onCancel', e)
-})
-
-
+}
 
 defineExpose({
   show,

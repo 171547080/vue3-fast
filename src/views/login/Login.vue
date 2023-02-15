@@ -5,13 +5,16 @@
 -->
 <template>
   <div class="container">
-    <div class="login-panel" ref="loginPanelRef">
+    <div ref="loginPanelRef" class="login-panel">
       <div class="panel-head">
         <Logo :height="40" />
         <div class="panel-title">{{ CONFIG.appName }}</div>
       </div>
       <div class="panel-body">
-        <a-form :model="formState" name="normal_login" class="login-form" @finish="onFinish"
+        <a-form :model="formState"
+          name="normal_login"
+          class="login-form"
+          @finish="onFinish"
           @finishFailed="onFinishFailed">
 
           <div class="iform-item">
@@ -50,16 +53,16 @@
   </div>
 </template>
 <script name="login" setup lang="ts">
-import { defineComponent, reactive, ref } from 'vue';
+import { defineComponent, reactive, ref } from 'vue'
 import Velocity from 'velocity-animate'
-import Router from "../../router/index";
-import { Form } from 'ant-design-vue';
+import Router from '../../router/index'
+import { Form, message } from 'ant-design-vue'
 import Logo from '@/components/ifram/i-logo.vue'
-import { message } from 'ant-design-vue';
+
 import { useUserStore } from '@store/index'
 import LoginingPanel from './logining-panel.vue'
-import CONFIG from "@/config"
-const ADMIN_PASSWORD = "123456"
+import CONFIG from '@/config'
+const ADMIN_PASSWORD = '123456'
 defineComponent({
   Logo,
   LoginingPanel
@@ -73,10 +76,10 @@ interface FormState {
 const formState = reactive<FormState>({
   username: '',
   password: ''
-});
+})
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const { resetFields, validate, validateInfos } = Form.useForm(formState, reactive({
+const { validate, validateInfos } = Form.useForm(formState, reactive({
   username: [
     {
       required: true,
@@ -89,20 +92,19 @@ const { resetFields, validate, validateInfos } = Form.useForm(formState, reactiv
       message: '请输入密码'
     }
   ]
-}));
+}))
 
 const loginPanelRef = ref(null)
 const loading = ref(false)
 const loadingStatus = ref('loading')
 
 const startLogin = () => {
-  Velocity(loginPanelRef.value, { opacity: 0, rotateX: "80deg", right: 550, duration: 300, easing: 'linear' })
+  Velocity(loginPanelRef.value, { opacity: 0, rotateX: '80deg', right: 550, duration: 300, easing: 'linear' })
   loadingStatus.value = 'loading'
   loading.value = true
-
 }
 const errorLogin = () => {
-  Velocity(loginPanelRef.value, { opacity: 1, rotateX: "0deg", right: 0, duration: 500, easing: 'linear' })
+  Velocity(loginPanelRef.value, { opacity: 1, rotateX: '0deg', right: 0, duration: 500, easing: 'linear' })
   loadingStatus.value = 'error'
   loading.value = false
 }
@@ -140,26 +142,26 @@ const onFinish = () => {
     }).catch(() => {
       // 校验不通过
       // No do someting
-    });
-};
+    })
+}
 
 const checkPassword = (username, password) => {
   return new Promise((resolve, reject) => {
     if (username !== 'admin' || password !== ADMIN_PASSWORD) {
       setTimeout(() => {
         errorLogin()
+        // eslint-disable-next-line prefer-promise-reject-errors
         reject({ message: '用户名或密码不正确' })
       }, 1500)
     } else {
       resolve({ success: true })
     }
-
   })
 }
 
 const onFinishFailed = (errorInfo: any) => {
-  console.log('Failed:', errorInfo);
-};
+  console.log('Failed:', errorInfo)
+}
 
 </script>
 
@@ -211,7 +213,6 @@ const onFinishFailed = (errorInfo: any) => {
     }
   }
 }
-
 
 .ant-form-item-label>label {
   color: #fff;

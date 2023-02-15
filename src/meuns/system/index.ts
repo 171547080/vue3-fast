@@ -1,3 +1,9 @@
+/*
+ * @Description: 菜单-系统菜单配置
+ * @Author: laigt
+ * @Date: 2023-02-2
+*/
+
 export default [
   {
     name: 'SystemUser',
@@ -21,4 +27,3 @@ export default [
     permission: ''
   }
 ]
-

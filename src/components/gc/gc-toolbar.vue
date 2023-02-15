@@ -1,16 +1,22 @@
 <template>
-    <div class="toolbar">
-        <div class="toolbar-left">
-            <slot name="left"></slot>
+    <div class="toolbar-warp">
+        <div class="toolbar-top">
+            <slot name="top"></slot>
         </div>
-
-        <slot name="default"></slot>
-
-        <div class="toolbar-right">
-            <slot name="right"></slot>
-            <div class="search-warp">
-                <slot name="search"></slot>
+        <div class="toolbar">
+            <div class="toolbar-left">
+                <slot name="left"></slot>
             </div>
+            <slot name="default"></slot>
+            <div class="toolbar-right">
+                <slot name="right"></slot>
+                <div class="search-warp">
+                    <slot name="search"></slot>
+                </div>
+            </div>
+        </div>
+        <div class="toolbar-bottom">
+            <slot name="bottom"></slot>
         </div>
     </div>
 </template>
@@ -36,7 +42,6 @@
     }
 
     .search-warp {
-        padding-right: 15px;
         float: right;
     }
 

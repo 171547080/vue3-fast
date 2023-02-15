@@ -23,7 +23,7 @@
       <a-select class="item-input" :allowClear="true" style="width: 120px" @change="onSearch"
         v-model:value="tableCfg.params.type">
         <a-select-option v-for="(d, key) in typeMap" :value="key" :key="key">{{
-            d
+          d
         }}</a-select-option>
       </a-select>
     </template>
@@ -136,7 +136,7 @@ const hangeToDetail = (row) => {
         id: row.id,
         ...row
       }
-    }); 
+    });
   }
 
   if (row.type === "Picture") {
@@ -146,7 +146,7 @@ const hangeToDetail = (row) => {
         id: row.id,
         ...row
       }
-    }); 
+    });
   }
 };
 

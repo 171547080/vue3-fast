@@ -4,32 +4,32 @@
  * @Date: 2023-01-31
 -->
 <template>
-    <div class="video-box">
-        <!-- <button @click="handelClose">关闭播放</button> -->
-        <!-- <button @click="handelPause">停止</button>
+  <div class="video-box">
+    <!-- <button @click="handelClose">关闭播放</button> -->
+    <!-- <button @click="handelPause">停止</button>
         <button @click="handelPlayButton">播放</button> -->
-        <div class="video-warp">
-            <div class="status-text">
-                <span v-show="!$slots.default || palyState.status === 'error'"
-                    :style="{ color: palyState.status === 'error' ? 'red' : '#000' }">{{
-                            statusMap[palyState.status]
-                    }}</span>
+    <div class="video-warp">
+      <div class="status-text">
+        <span v-show="!$slots.default || palyState.status === 'error'"
+          :style="{ color: palyState.status === 'error' ? 'red' : '#000' }">{{
+  statusMap[palyState.status]
+          }}</span>
 
-                <span v-show="palyState.status !== 'error'">
-                    <slot></slot>
-                </span>
+        <span v-show="palyState.status !== 'error'">
+          <slot></slot>
+        </span>
 
-            </div>
-            <a-spin :tip="palyState.spinningMsg" :spinning="palyState.spinning">
-                <video v-show="palyState.status === 'loading' || palyState.status === 'play'" id="videoElement" controls
-                    class="video-instance" ref="player" muted></video>
-            </a-spin>
-            <div v-show="palyState.status === 'pending' || palyState.status === 'error'" class="init-mask">
-                <play-circle-outlined class="icon" @click="handelPlay" />
-                <p v-if="palyState.status === 'error'" class="error-message"> {{ errorMessage }} </p>
-            </div>
-        </div>
+      </div>
+      <a-spin :tip="palyState.spinningMsg" :spinning="palyState.spinning">
+        <video v-show="palyState.status === 'loading' || palyState.status === 'play'" id="videoElement" controls
+          class="video-instance" ref="player" muted></video>
+      </a-spin>
+      <div v-show="palyState.status === 'pending' || palyState.status === 'error'" class="init-mask">
+        <play-circle-outlined class="icon" @click="handelPlay" />
+        <p v-if="palyState.status === 'error'" class="error-message"> {{ errorMessage }} </p>
+      </div>
     </div>
+  </div>
 </template>
 <script name="commonVideo" setup lang="ts">
 import { ref, onUnmounted, reactive } from 'vue';
@@ -58,7 +58,7 @@ const palyState = reactive({
 let taskId
 // 设置默认的最大超时时间为 30s
 const MAX_TIME_OUT = 30 * 1000
-const errorMessage = "视频数据请求超时(" + MAX_TIME_OUT/1000 +"s),请检查视频数据URL地址是否有效"
+const errorMessage = "视频数据请求超时(" + MAX_TIME_OUT / 1000 + "s),请检查视频数据URL地址是否有效"
 const clearTask = () => {
   window.clearTimeout(taskId)
 }
@@ -130,7 +130,7 @@ const startVideo = (wsServerUrl, url, timeout?) => {
         instance.play().then(() => {
           palyState.loadTime = (new Date().getTime() - runTime)
           palyState.status = 'play'
-                    
+
           // 清除请求超时定时器
           clearTask()
 
@@ -146,10 +146,10 @@ const startVideo = (wsServerUrl, url, timeout?) => {
   }
 }
 const emit = defineEmits<{
-    (e: 'onPlay', event: any): void,
-    (e: 'onPause', event: any): void,
-    (e: 'onRecovery', event: any): void,
-    (e: 'onPlaying'): void,
+  (e: 'onPlay', event: any): void,
+  (e: 'onPause', event: any): void,
+  (e: 'onRecovery', event: any): void,
+  (e: 'onPlaying'): void,
 
 }>()
 
@@ -190,66 +190,66 @@ onUnmounted(() => {
 @max-height: 600px;
 
 .video-box {
+  position: relative;
+  background: @background-color;
+  border: 1px solid @border-color;
+  width: 100%;
+  padding: 10px;
+  margin-right: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .video-warp {
     position: relative;
-    background: @background-color;
-    border: 1px solid @border-color;
-    width: 100%;
-    padding: 10px;
-    margin-right: 15px;
     display: flex;
-    justify-content: center;
-    align-items: center;
 
-    .video-warp {
-        position: relative;
-        display: flex;
+    .status-text {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      z-index: 999;
 
-        .status-text {
-            position: absolute;
-            top: 5px;
-            right: 10px;
-            z-index: 999;
-
-        }
     }
+  }
 
-    .video-instance {
-        height: 55vh;
-        min-height: 400px;
-        min-width: 600px;
+  .video-instance {
+    height: 55vh;
+    min-height: 400px;
+    min-width: 600px;
+  }
+
+  .error-message {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 13px;
+    line-height: 13px;
+    color: red;
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .init-mask {
+    position: relative;
+    background: #f0f0f0;
+    height: 55vh;
+    min-height: 400px;
+    min-width: 600px;
+    text-align: center;
+    line-height: 60vh;
+
+    .icon {
+      font-size: 80px;
+      cursor: pointer;
+      transition: color 2s;
+      color: #000;
+
+      :hover {
+        color: #666;
+      }
     }
-
-    .error-message {
-        position: absolute;
-        top: 60%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 13px;
-        line-height: 13px;
-        color: red;
-        text-align: center;
-        padding-top: 20px;
-    }
-
-    .init-mask {
-        position: relative;
-        background: #f0f0f0;
-        height: 55vh;
-        min-height: 400px;
-        min-width: 600px;
-        text-align: center;
-        line-height: 60vh;
-
-        .icon {
-            font-size: 80px;
-            cursor: pointer;
-            transition: color 2s;
-            color: #000;
-
-            :hover {
-                color: #666;
-            }
-        }
-    }
+  }
 }
 </style>

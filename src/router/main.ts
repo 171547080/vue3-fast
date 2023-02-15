@@ -1,35 +1,31 @@
+/*
+ * @Description: 路由配置-框架必要路由配置
+ * @Author: laigt
+ * @Date: 2023-02-2
+*/
+
 const main = [
   {
-    path: "/",
-    redirect: { name: "AI" },
-    meta: {}
+    path: '',
+    redirect: 'home'
   },
   {
-    name: "home",
-    path: "/home",
+    name: 'home',
+    path: '/home',
     meta: {
-      title: "首页",
+      title: '首页',
       // 取消进入动画flag  true-路由切换关闭进入、退出动画
       cancelTransition: true
     },
-    component: () => import("@views/Home.vue")
+    component: () => import('@views/home/Home.vue')
   },
   {
-    name: "login",
-    path: "/login",
+    name: 'login',
+    path: '/login',
     meta: {
-      title: "登录"
+      title: '登录'
     },
-    component: () => import("@views/login/Login.vue")
-  },
-  // 首页demo
-  {
-    name: "indexV1",
-    path: "/index/v1",
-    meta: {
-      title: "首页"
-    },
-    component: () => import("@views/index/v1.vue")
+    component: () => import('@views/login/Login.vue')
   },
   // 404页面匹配未配置的路径
   {
@@ -44,4 +40,4 @@ const main = [
     hidden: true
   }
 ]
-export default main;
+export default main

@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import InnerFrame from '@components/ifram/inner-frame.vue'
 import LeftMenu from '@components/ifram/left-menu.vue'
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 import { system } from '../../meuns'
 defineComponent({

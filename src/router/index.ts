@@ -1,15 +1,22 @@
-import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
+/*
+ * @Description: 路由配置
+ * @Author: laigt
+ * @Date: 2023-02-2
+*/
+
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import CONFIG from '@/config'
-import main from "./main";
-import ai from "./modules/ai";
-import system from "./modules/system";
+import main from './main'
+import system from './modules/system'
+import portal from './modules/portal'
+import personalCenter from './modules/personalCenter'
 
 const IS_HISTORY = CONFIG.ROUTER_MODE === 'history'
 
 const router = createRouter({
   history: IS_HISTORY ? createWebHistory() : createWebHashHistory(),
-  routes: [...main, ...ai, ...system]
-});
+  routes: [...main, ...system, ...portal, ...personalCenter]
+})
 
 /**
  * 全局守卫
@@ -19,8 +26,8 @@ const router = createRouter({
  */
 
 router.beforeEach(() => {
-  // const userStore = useUserStore() 
-  
+  // const userStore = useUserStore()
+
   // userStore.checkLogin()
-});
-export default router;
+})
+export default router

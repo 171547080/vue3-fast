@@ -1,5 +1,9 @@
-import { message } from 'ant-design-vue';
+import { message } from 'ant-design-vue'
 
+// 请求前请求自定义处理params方法 - 定义
+interface HandleRequestFun{
+  (data:any):any
+}
 // 定义tablexCfg类型
 export interface TablexCfgType {
     show?: boolean
@@ -11,7 +15,7 @@ export interface TablexCfgType {
     data: any,
     errorText?: string,
     loading?: boolean,
-    handleRequest(data: any): any
+    handleRequest?: HandleRequestFun
 }
 // 默认值配置
 const defaultCfg: TablexCfgType = {
@@ -33,8 +37,8 @@ const defaultCfg: TablexCfgType = {
 }
 /**
  * 请求前最后处理一次请求数据-data
- * @param data 
- * @returns 
+ * @param data
+ * @returns
  */
 export function handleRequest(data: any): any {
   return data
@@ -42,8 +46,8 @@ export function handleRequest(data: any): any {
 
 /**
  * 创建cfg方法
- * @param cfg 
- * @returns 
+ * @param cfg
+ * @returns
  */
 export function createCfg(cfg: TablexCfgType): TablexCfgType {
   const result = Object.assign({}, defaultCfg, cfg)
@@ -54,7 +58,7 @@ export function createCfg(cfg: TablexCfgType): TablexCfgType {
  * 发起请求
  * @param cfg
  * @param loadingDelay  加载动画时间。默认500
- * @returns 
+ * @returns
  */
 const requestApi = (cfg: TablexCfgType, loadingDelay?: number) => {
   const loadingTime = loadingDelay || 500
@@ -63,14 +67,11 @@ const requestApi = (cfg: TablexCfgType, loadingDelay?: number) => {
   const requestData = cfg.handleRequest ? cfg.handleRequest(cfg.data) : cfg.data
 
   return new Promise((resolve, reject) => {
-
     cfg.api(requestData).then((res) => {
-
       setTimeout(() => {
         cfg.submitting = false
         resolve(res)
       }, loadingTime as number)
-
     }).catch((error) => {
       // api请求异常提示
       cfg.submitting = false
@@ -82,8 +83,8 @@ const requestApi = (cfg: TablexCfgType, loadingDelay?: number) => {
 
 /**
  * 进行submit操作，配置api，这发起请求
- * @param cfg 
- * @returns 
+ * @param cfg
+ * @returns
  */
 export function submit(cfg: TablexCfgType) {
   return new Promise((resolve, reject) => {
@@ -107,11 +108,10 @@ export function submit(cfg: TablexCfgType) {
 export function cancel(cfg: TablexCfgType) {
   // 隐藏模态框
   hide(cfg)
-  return
 }
 /**
  * 展示模态框
- * @param cfg 
+ * @param cfg
  * @param defaultData {} 为清空data  按照defaultData的key值，赋值到cfg.data数据中（如 {}|null 则全数据不重置）
  */
 export function show(cfg: TablexCfgType, defaultData?: object) {
@@ -139,11 +139,8 @@ export function commonSubmit(formRef, cfg: TablexCfgType, successMessage?: strin
   return new Promise((resolve, reject) => {
     formRef.validateFields().then(() => {
       submit(cfg).then(() => {
-
         if (successMessage !== null) message.success(successMessage || '操作成功')
         resolve(cfg.data)
-
-
       }).catch((err) => {
         reject(err)
       })

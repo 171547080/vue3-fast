@@ -7,7 +7,9 @@
       <div class="right-contnet">
         <a-card class="card" :title="router.currentRoute.value.meta.title" :bordered="false">
           <template #extra>
-            <a-button v-if="router.currentRoute.value.meta.showGoBack" type="primary"
+            <a-button
+              v-if="router.currentRoute.value.meta.showGoBack"
+              type="primary"
               @click="goBack(router.currentRoute.value.meta.goBackRouterName)">
               <rollback-outlined />返回
             </a-button>
@@ -20,7 +22,7 @@
 </template>
 <script lang="ts" setup>
 import router from '@/router'
-import { RollbackOutlined } from '@ant-design/icons-vue';
+import { RollbackOutlined } from '@ant-design/icons-vue'
 
 const goBack = (routerName) => {
   // 判断历史栈中是否有back记录
@@ -32,42 +34,44 @@ const goBack = (routerName) => {
 }
 </script>
 <style lang="less" scoped>
-@left-side-width: 250px;
-@topic-height: 60px;
+/**
+* 指定topic组件固定高度
+*/
+@topic-height: 125px;
 
 .content {
   display: flex;
   flex-direction: row;
-  height: calc(100vh - @topic-height);
+  // height: calc(100vh - @topic-height);
 
   .card {
-    background: url(/img/bg/content-bg.jpg) 90% -3% no-repeat;
-
+    border-radius: 5px;
+    // background: url(/img/bg/content-bg.jpg) 90% -3% no-repeat;
     :deep(.ant-card-body) {
-      padding: 10px 24px 10px 24px;
+      padding: 10px 20px;
     }
   }
 
 }
 
 .left-side {
-  display: inline-block;
-  vertical-align: top;
-
-  // background-color: #112233;
-  height: 100%;
   display: flex;
 }
 
 .right-side {
-  display: inline-block;
+  // display: inline-block;
+  display: flex;
+  flex: 1;
   vertical-align: top;
   height: 100%;
   overflow: auto;
-  flex: 1;
+  background: #eaedee;
 
   .right-contnet {
     display: block;
+    width: 100%;
+    padding: 15px;
+    min-height: calc(100vh - @topic-height);
   }
 }
 </style>

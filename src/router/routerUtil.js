@@ -1,7 +1,13 @@
-import Router from "../router/index";
+/*
+ * @Description: 路由工具类-用于自定义的路由切换方法
+ * @Author: laigt
+ * @Date: 2023-02-2
+*/
+
+import Router from '../router/index'
 
 function isString(str) {
-  return typeof str === "string" && str.constructor === String;
+  return typeof str === 'string' && str.constructor === String
 }
 
 /**
@@ -9,20 +15,20 @@ function isString(str) {
  * @param {*} data  string  || object
  */
 export function routerPush(data) {
-  let routerData = {};
+  let routerData = {}
   if (isString(data)) {
     routerData.name = data
   } else {
     routerData = {
       ...data
-    };
+    }
   }
 
   if (!routerData.params) {
-    routerData.params = {};
+    routerData.params = {}
   }
-  routerData.params["routerType"] = "push";
-  Router.push(routerData);
+  routerData.params.routerType = 'push'
+  Router.push(routerData)
 }
 
 /**
@@ -30,6 +36,6 @@ export function routerPush(data) {
  * @param {*} data  string  || object
  */
 export function routerBack() {
-  Router.back();
+  Router.back()
 }
-export * from "vue-router";
+export * from 'vue-router'

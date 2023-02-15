@@ -1,13 +1,19 @@
 /* eslint-disable vue/no-mutating-props */
 <template>
-    <a-form ref="formRef" name="custom-validation" :model="props.formState" v-model:rules="formRules"
-        v-bind="props.layout" @finish="handleFinish" @validate="handleValidate" @finishFailed="handleFinishFailed">
+    <a-form ref="formRef"
+    v-model:rules="formRules"
+    name="custom-validation"
+    :model="props.formState"
+    v-bind="props.layout"
+    @finish="handleFinish"
+    @validate="handleValidate"
+    @finishFailed="handleFinishFailed">
         <slot></slot>
     </a-form>
 </template>
 
 <script setup lang="ts" name="Formx">
-import { reactive, ref, watch, onMounted } from 'vue';
+import { reactive, ref, watch, onMounted } from 'vue'
 
 const props = defineProps({
   formState: {
@@ -30,25 +36,32 @@ const props = defineProps({
   }
 })
 
-const formRules = ref(props.rules);
-      
+const formRules = ref(props.rules)
+
 watch(
   () => props.rules,
+  // eslint-disable-next-line no-return-assign
   (value) => formRules.value = value
-);
+)
 
-const formRef = ref();
+const formRef = ref()
 
 onMounted(() => {
   resetVaid()
 })
 
+/**
+ * 手动触发校验
+ */
 const validateFields = () => {
-  return formRef.value.validateFields();
-};
+  return formRef.value.validateFields()
+}
 
+/**
+ * 清空校验规则
+ */
 const resetVaid = () => {
-  formRef.value.resetFields();
+  formRef.value.resetFields()
 }
 
 defineExpose({
@@ -60,12 +73,12 @@ defineExpose({
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const handleFinish = (values) => {
   // console.log(values);
-};
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const handleFinishFailed = errors => {
   // console.log(errors);
-};
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const handleValidate = (...args) => {

@@ -31,7 +31,7 @@
 </template>
 
 <script name="401" setup lang="ts">
-import router from '@/router';
+import router from '@/router'
 
 const back = () => {
   console.error(router)

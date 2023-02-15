@@ -8,7 +8,8 @@
     <div class="content-warp">
       <div class="main">
         <p class="video-title">{{ info.name || '--' }}</p>
-        <CommonVideo ref="videoRef" @onPlay="handelPlay" @onPause="handelPause" @onRecovery="handelRecovery"> </CommonVideo>
+        <CommonVideo ref="videoRef" @onPlay="handelPlay" @onPause="handelPause" @onRecovery="handelRecovery">
+        </CommonVideo>
       </div>
     </div>
     <StatisticsInfo ref="statisticsRef"></StatisticsInfo>
@@ -65,7 +66,7 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
-  if (info.id){
+  if (info.id) {
     vehicleTypeApi.stopAi(info.id)
   }
 })
@@ -137,7 +138,7 @@ const refresh = (data) => {
     flex: 1;
 
 
-.video-title {
+    .video-title {
       position: absolute;
       z-index: 999;
       top: 20px;

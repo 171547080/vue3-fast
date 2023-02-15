@@ -10,7 +10,7 @@ export default {
     return post({
       baseURL: '/mock',
       url: '/user/login',
-      data: data
+      data
     })
   },
   logout() {
