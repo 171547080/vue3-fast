@@ -1,9 +1,16 @@
+<!--
+ * @Description: 框架-左侧菜单组件
+ * @Author: laigt
+ * @Date: 2023-02-2
+-->
 <template>
-  <div>
-    <a-button v-show="false" class="open-btn" @click="toggleCollapsed">
-      <menu-unfold-outlined v-if="collapsed" />
-      <menu-fold-outlined v-else />
-    </a-button>
+  <menu class="menu-warp">
+    <div class="open-btn-warp">
+      <span class="open-btn" @click="toggleCollapsed">
+        <menu-unfold-outlined v-if="collapsed" />
+        <menu-fold-outlined v-else />
+      </span>
+    </div>
     <a-menu
       v-model:openKeys="openKeys"
       v-model:selectedKeys="selectedKeys"
@@ -11,7 +18,6 @@
       mode="inline"
       theme="dark"
       :inline-collapsed="collapsed"
-      :style="{width:menusWidth}"
     >
       <template v-for="d in newMenus">
         <template v-if="d.children && d.children.length">
@@ -37,10 +43,10 @@
         </a-menu-item>
       </template>
     </a-menu>
-  </div>
+  </menu>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, toRefs, watch, ref, computed } from 'vue'
+import { defineComponent, reactive, toRefs, watch, ref } from 'vue'
 import { recursiveFindItem, getParentNodeToArray } from '../../utils/tree'
 // 暂时按照meuns中配置的图标按需引入
 import {
@@ -54,7 +60,15 @@ import {
   AimOutlined,
   UserOutlined,
   FlagOutlined,
-  AuditOutlined
+  AuditOutlined,
+  FolderOutlined,
+  FileOutlined,
+  ContainerOutlined,
+  SyncOutlined,
+  CarryOutOutlined,
+  BulbOutlined,
+  FormOutlined
+
 } from '@ant-design/icons-vue'
 import router from '@/router'
 
@@ -124,7 +138,14 @@ export default defineComponent({
     AimOutlined,
     UserOutlined,
     FlagOutlined,
-    AuditOutlined
+    AuditOutlined,
+    FolderOutlined,
+    FileOutlined,
+    ContainerOutlined,
+    SyncOutlined,
+    CarryOutOutlined,
+    BulbOutlined,
+    FormOutlined
   },
   props: {
     // menus 为 Array<MeunType> 格式
@@ -133,15 +154,17 @@ export default defineComponent({
       default: () => {
         return []
       }
-    },
+    }
+    /* 缩放不支持固定宽度  样式变量：@ant-menu-width - 默认展开时的菜单宽度
     width: {
       type: Number,
       default: 200
     }
+    */
   },
   setup(props) {
     const newMenus = ref(props.menus as Array<MeunType>)
-    const menusWidth = computed(() => { return props.width + 'px' })
+    // const menusWidth = computed(() => { return props.width + 'px' })
     const state = reactive({
       collapsed: false,
       selectedKeys: [''],
@@ -181,7 +204,7 @@ export default defineComponent({
     }
     return {
       newMenus,
-      menusWidth,
+      // menusWidth,
       ...toRefs(state),
       toggleCollapsed,
       hangleMenuItemClick
@@ -190,29 +213,18 @@ export default defineComponent({
 })
 </script>
 <style lang="less" scoped>
+@ant-menu-width: 210px;
+@ant-menu-item-width: @ant-menu-width - 70px;
+@ant-menu-sub-item-width: @ant-menu-item-width - 20px;
 
 .ant-menu {
   height: 100%;
   // font-weight: bold;
 }
 
-.open-btn {
-  position: absolute;
-  z-index: 999;
-  top: -58px;
-  left: 5px;
-  border: 0;
-  background: transparent;
-  font-size: 30px;
-  color: aliceblue;
-  width: 55px;
-  height: 55px;
-  vertical-align: baseline;
-  background: transparent;
-}
-
 .menu {
   // background: #32323a;
+  min-height: 100%;
   padding-top: 5px;
   font-size: 16px;
 }
@@ -220,10 +232,12 @@ export default defineComponent({
 .ant-menu {
   :deep(.ant-menu-submenu-title > .ant-menu-title-content) {
     padding-right: 10px;
+    width: @ant-menu-sub-item-width;
   }
 
   :deep(.ant-menu-item > .ant-menu-title-content) {
     padding-right: 10px;
+    width: @ant-menu-item-width;
   }
 
   :deep(.ant-menu-dark .ant-menu-item){
@@ -244,5 +258,23 @@ export default defineComponent({
 
 .icon {
   font-size: 20px;
+}
+
+.open-btn-warp{
+  z-index: 9999;
+  position: absolute;
+  padding: 5px 25px;
+  bottom: 5px;
+  .open-btn {
+    border: 0;
+    background: transparent;
+    font-size: 25px;
+    color: aliceblue;
+    width: 55px;
+    height: 55px;
+    vertical-align: baseline;
+    background: transparent;
+    cursor: pointer;
+  }
 }
 </style>

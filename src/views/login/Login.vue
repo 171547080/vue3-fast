@@ -74,8 +74,8 @@ interface FormState {
 }
 
 const formState = reactive<FormState>({
-  username: '',
-  password: ''
+  username: 'admin',
+  password: ADMIN_PASSWORD
 })
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

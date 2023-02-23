@@ -1,5 +1,5 @@
 <!--
- * @Description: 弹出框-个人中心-我的申请记录-创建/编辑
+ * @Description: 弹出框-个人中心-工单申请-创建
  * @Author: laigt
  * @Date: 2023-02-7
 -->
@@ -9,67 +9,54 @@
     v-model:submitting="cfg.submitting"
     v-model:cancelText="cfg.cancelText"
     v-model:okText="cfg.okText"
-    :title="isUpdate?'编辑申请':'创建申请'"
+    :title="isUpdate?'创建工单':'编辑工单'"
     @on-ok="handelSubmit"
     @on-cancel="handelCancel"
   >
     <gc-formx ref="formx" :formState="formState">
       <a-form-item
       v-if="isUpdate"
-        label="申请编号"
+        label="工单号"
       >
         <span>{{ formState.no }}</span>
       </a-form-item>
       <a-form-item
         v-else
         has-feedback
-        label="申编号"
+        label="工单号"
         name="no"
         :rules="[{required: true,validator: $vaild.queue([$vaild.maxLength(2, 50), $vaild.required])}]"
       >
         <a-input
           v-model:value="formState.no"
           autocomplete="off"
-          placeholder="请输入申编号"
+          placeholder="请输入工单号"
           :disabled="cfg.submitting"
         />
       </a-form-item>
       <a-form-item
         has-feedback
-        label="申请单位"
-        name="applyUser"
-        :rules="[{required: true,validator: $vaild.queue([$vaild.maxLength(2, 50), $vaild.required])}]"
-      >
-        <a-input
-          v-model:value="formState.applyUser"
-          placeholder="请输入申请单位"
-          autocomplete="off"
-          :disabled="cfg.submitting"
-        />
-      </a-form-item>
-      <a-form-item
-        has-feedback
-        label="申请项目"
+        label="工单名称"
         name="name"
         :rules="[{required: true,validator: $vaild.queue([$vaild.maxLength(2, 50), $vaild.required])}]"
       >
         <a-input
           v-model:value="formState.name"
-          placeholder="请输入申请项目"
+          placeholder="请输入工单名称"
           autocomplete="off"
           :disabled="cfg.submitting"
         />
       </a-form-item>
       <a-form-item
         has-feedback
-        label="项目标题"
-        name="title"
+        label="人员名称"
+        name="username"
 
         :rules="[{required: true,validator: $vaild.queue([$vaild.maxLength(2, 50), $vaild.required])}]"
       >
         <a-input
-          v-model:value="formState.title"
-          placeholder="请输入项目标题"
+          v-model:value="formState.username"
+          placeholder="请输入人员名称"
           autocomplete="off"
           :disabled="cfg.submitting"
         />
@@ -87,11 +74,29 @@
           :disabled="cfg.submitting"
         />
       </a-form-item>
+      <a-form-item
+        has-feedback
+        label="职位"
+        name="position"
+        :rules="[{required: true,validator: $vaild.queue([$vaild.required])}]"
+      >
+        <a-select
+        v-model:value="formState.position"
+        placeholder="请选择职位"
+        autocomplete="off"
+        :allowClear="true"
+        :disabled="cfg.submitting"
+      >
+        <a-select-option v-for="(d, key) in positionMap" :key="key" :value="key">{{
+          d
+        }}</a-select-option>
+      </a-select>
+      </a-form-item>
     </gc-formx>
   </gc-modalx>
 </template>
 
-<script setup lang="ts" name="PopupPersonalApplyAdd">
+<script setup lang="ts" name="PopupWorkOrderApply">
 import { ref, reactive } from 'vue'
 import {
   createCfg,
@@ -101,14 +106,19 @@ import {
   cancel
 } from '@components/gc/utils/modalxUtils'
 import $vaild from '@components/js/vaild'
-import applyApi from '@/api/personal/applyApi'
+import orderApi from '@/api/workOrder/orderApi'
 
 interface FormState {
-  no: string | number;
-  applyUser: string;
   name: string;
-  title: string;
+  username: string;
+  no: string | number;
   phone: string | number;
+  position: string;
+}
+
+const positionMap = {
+  1: '普通员工',
+  2: '部门领导'
 }
 
 const formx = ref()
@@ -116,13 +126,13 @@ const isUpdate = ref(false)
 
 const cfg = reactive(
   createCfg({
-    api: applyApi.add,
+    api: orderApi.add,
     data: {
-      no: '',
-      applyUser: '',
-      title: '',
+      name: '',
+      username: '',
       phone: '',
-      name: ''
+      position: '',
+      no: ''
     }
   })
 )
@@ -158,7 +168,7 @@ const popup = (defaultData?: FormState) => {
  */
 const showadd = (defaultData?: FormState) => {
   isUpdate.value = false
-  cfg.api = applyApi.add
+  cfg.api = orderApi.add
 
   // 处理函数
   const data: FormState = defaultData || {} as FormState
@@ -171,7 +181,7 @@ const showadd = (defaultData?: FormState) => {
  */
 const showUpdate = (defaultData?: FormState) => {
   isUpdate.value = true
-  cfg.api = applyApi.update
+  cfg.api = orderApi.update
   show(cfg, defaultData)
 }
 

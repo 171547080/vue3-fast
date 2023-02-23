@@ -9,13 +9,14 @@ import CONFIG from '@/config'
 import main from './main'
 import system from './modules/system'
 import portal from './modules/portal'
+import workOrder from './modules/workOrder'
 import personalCenter from './modules/personalCenter'
 
 const IS_HISTORY = CONFIG.ROUTER_MODE === 'history'
 
 const router = createRouter({
   history: IS_HISTORY ? createWebHistory() : createWebHashHistory(),
-  routes: [...main, ...system, ...portal, ...personalCenter]
+  routes: [...main, ...system, ...portal, ...personalCenter, ...workOrder]
 })
 
 /**

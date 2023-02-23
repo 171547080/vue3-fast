@@ -2,6 +2,7 @@ import required from './required'
 import maxLength from './maxLength'
 import number from './number'
 import network from './network'
+import contact from './contact'
 import type { Rule } from 'ant-design-vue/es/form'
 
 /**
@@ -30,7 +31,6 @@ function queue(vailds: Array<any>) {
     await Promise.all(promises).then(() => {
       return Promise.resolve()
     }).catch((error) => {
-      console.error(error)
       return Promise.reject(error)
     })
   }
@@ -41,4 +41,4 @@ function isPromise(obj) {
         (typeof obj === 'object' || typeof obj === 'function') && // 初始promise 或 promise.then返回的
         typeof obj.then === 'function'
 }
-export default { queue, ...required, ...maxLength, ...number, ...network }
+export default { queue, ...required, ...maxLength, ...number, ...network, ...contact }

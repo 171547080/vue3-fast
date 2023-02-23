@@ -6,7 +6,7 @@
 
 import { defineStore } from 'pinia'
 import { setToken, isLogin, clearToken } from '../../../utils/auth'
-import { useAppStore } from '@store/index'
+import { useAppStore, usePermissionStore } from '@store/index'
 import userApi from '@api/user'
 import { UserState } from './types'
 import router from '@/router'
@@ -76,6 +76,9 @@ export const useUserStore = defineStore({
       } else {
         // 是否展示加载中遮罩
         if (showSpinning) useAppStore().startSpinning()
+
+        // 加载当前用户的权限信息
+        usePermissionStore().loadPermissions()
 
         // 是否调用登录接口
         if (IS_LOGIN) {

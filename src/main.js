@@ -4,9 +4,13 @@ import router from './router'
 import piniaStore from '@store/index'
 import antd from 'ant-design-vue'
 import gc from './components/gc/index'
+import directives from './components/directive'
 
 import './assets/css/reset.css'
-import 'ant-design-vue/dist/antd.min.css'
+// import 'ant-design-vue/dist/antd.min.css'
+// import 'ant-design-vue/dist/antd.dark.css'
+import 'ant-design-vue/dist/antd.variable.min.css'
+// import '@components/inside/theme/antd.dark.css'
 
 // 动画库
 // import './assets/css/animate.min.css'
@@ -20,6 +24,9 @@ const app = createApp(App)
 
 app.use(piniaStore)
 app.use(router)
+
+// 添加全局指令
+app.use(directives)
 
 // 全局引用antd的UI库
 app.use(antd)

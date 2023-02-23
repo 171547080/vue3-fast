@@ -1,5 +1,5 @@
 <!--
- * @Description: 弹出框-个人中心-我的申请记录-删除
+ * @Description: 弹出框-个人中心-工单申请-删除
  * @Author: laigt
  * @Date: 2023-02-7
 -->
@@ -7,19 +7,19 @@
   <gc-modalx
     v-model:show="cfg.show"
     v-model:submitting="cfg.submitting"
-    title="是否删除申请记录"
+    title="是否删除订单"
     :confirm="true"
     @on-ok="handelSubmit"
   >
    <div v-if="currentConfirmType === 'single'"> 确认删除【 {{ formState.name }} 】</div>
    <div v-if="currentConfirmType === 'batch'">
      <div>确认删除：</div>
-     <div v-for="d,i in arrayFormState" :key="d.name + '_' + i">{{ `【${d.applyUser}】的【 ${d.name} (${d.id})】` }}</div>
+     <div v-for="d,i in arrayFormState" :key="d.name + '_' + i">【{{ d.name }}( {{d.id}} )】</div>
     </div>
   </gc-modalx>
 </template>
 
-<script setup lang="ts" name="PopupPersonalApplyDelete">
+<script setup lang="ts" name="PopupWorkOrderDelete">
 import { reactive, ref } from 'vue'
 import {
   createCfg,
@@ -29,22 +29,20 @@ import {
   messageSucess
 } from '@components/gc/utils/modalxUtils'
 
-import applyApi from '@api/personal/applyApi'
+import orderApi from '@/api/workOrder/orderApi'
 
 interface FormState {
   id: string;
   name: string;
-  applyUser: string;
 }
 type confirmType = 'single'|'batch';
 
 const cfg = reactive(
   createCfg({
-    api: applyApi.del,
+    api: orderApi.del,
     data: {
       id: '',
-      name: '',
-      applyUser: ''
+      name: ''
     },
     handleRequest: (data: FormState) => {
       return data.id

@@ -105,6 +105,10 @@ export function submit(cfg: TablexCfgType) {
     })
   })
 }
+/**
+ * 取消模态框
+ * @param cfg
+ */
 export function cancel(cfg: TablexCfgType) {
   // 隐藏模态框
   hide(cfg)
@@ -149,7 +153,13 @@ export function commonSubmit(formRef, cfg: TablexCfgType, successMessage?: strin
     })
   })
 }
-
+/**
+ * 常规确认提交方法
+ * @param formRef            formxRef对象 例如（formxRef.value）
+ * @param cfg                cfgd对象
+ * @param successMessage     请求成功提示  可选项: null-不提示   undefine-'操作成功'
+ * @returns Promise
+ */
 export function commonConfirm(cfg: TablexCfgType, successMessage?: string | null) {
   return new Promise((resolve, reject) => {
     submit(cfg).then(() => {
@@ -159,4 +169,12 @@ export function commonConfirm(cfg: TablexCfgType, successMessage?: string | null
       reject(err)
     })
   })
+}
+
+/**
+ * 操作成功提示
+ * @param sucessText
+ */
+export function messageSucess(sucessText?:string) {
+  message.success(sucessText || '操作成功')
 }

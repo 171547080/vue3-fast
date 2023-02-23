@@ -72,7 +72,11 @@ export function createCfg(cfg: TablexCfgParamType): TablexCfgType {
   const result = Object.assign({}, defaultCfg, cfg)
   return result
 }
-
+/**
+ * 内部统一发起API请求方法
+ * @param cfg
+ * @returns
+ */
 const requestApi = (cfg: TablexCfgType) => {
   cfg.errorMessage = ''
   cfg.params.pageNo = cfg.pageNo
@@ -108,7 +112,11 @@ const requestApi = (cfg: TablexCfgType) => {
       })
   })
 }
-
+/**
+ * 表格：统一搜索方法
+ * @param cfg
+ * @returns
+ */
 export function serach(cfg: TablexCfgType) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   return new Promise((resolve, reject) => {

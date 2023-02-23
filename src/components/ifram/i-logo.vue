@@ -1,3 +1,8 @@
+<!--
+ * @Description: 框架-统一LOGO组件
+ * @Author: laigt
+ * @Date: 2023-02-2
+-->
 <template>
     <div class="logo" :style="{ height: height + 'px' }">
         <img :src="url" />

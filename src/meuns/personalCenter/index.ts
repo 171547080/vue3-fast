@@ -39,21 +39,21 @@ export default [
   {
     name: 'myApp',
     title: '我的应用',
-    icon: 'flag-outlined',
+    icon: 'bulb-outlined',
     routerName: '',
     permission: ''
   },
   {
     name: 'myTask',
     title: '我的任务',
-    icon: 'flag-outlined',
+    icon: 'sync-outlined',
     routerName: '',
     permission: ''
   },
   {
     name: 'editPwd',
     title: '修改密码',
-    icon: 'flag-outlined',
+    icon: 'form-outlined',
     routerName: '',
     permission: ''
   }

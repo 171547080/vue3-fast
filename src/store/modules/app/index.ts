@@ -6,19 +6,25 @@
 
 import { defineStore } from 'pinia'
 import { get } from '@api/axios'
-
+import { getLocalStorage, setLocalStorage } from '@/utils/localStorage'
 interface PropertiesState {
     WS_SERVER_URL: string
 }
+
+const USER_THEME_COLOR_KEY = 'USER_THEME_COLOR_KEY'
 export interface AppState {
     spinning: boolean,
+    themeColor: string,
     properties: PropertiesState,
+    inverseColorMode: boolean,
 }
 
 export const useAppStore = defineStore({
   id: 'app',
   state: (): AppState => ({
     spinning: false,
+    themeColor: '#1890ff',
+    inverseColorMode: false,
     properties: {
       WS_SERVER_URL: '127.0.0.1'
     }
@@ -44,6 +50,13 @@ export const useAppStore = defineStore({
           }
         }
       })
+    },
+    async getUserThemeColor() {
+      this.themeColor = getLocalStorage(USER_THEME_COLOR_KEY) || '#1890ff'
+    },
+    async themeColorChange(color:string) {
+      this.themeColor = color
+      setLocalStorage(USER_THEME_COLOR_KEY, this.themeColor)
     }
   }
 })

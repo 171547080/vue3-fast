@@ -1,3 +1,9 @@
+/*
+ * @Description: 用户API
+ * @Author: laigt
+ * @Date: 2023-02-2
+*/
+
 import { get, post } from '../axios'
 
 interface LoginResquest {

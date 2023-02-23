@@ -1,12 +1,17 @@
 
+<!--
+ * @Description: 框架-头部导航
+ * @Author: laigt
+ * @Date: 2023-02-2
+-->
 <template>
-  <div class="topic-warp">
+  <header class="topic-warp">
     <div class="topic">
-      <div class="topic-left">
+      <section class="topic-left">
         <logo></logo>
         <span class="title">{{ CONFIG.appName }}</span>
-      </div>
-      <div class="topic-middle">
+      </section>
+      <section v-if="false" class="topic-middle">
         <div class="server-info">
           <div
             class="server-text"
@@ -64,17 +69,17 @@
             />
           </div>
         </div>
-      </div>
-      <div class="topic-right">
+      </section>
+      <section class="topic-right">
         <a-dropdown>
           <div class="user-info">
             <div class="user-text">
-              {{ userStore.realName || userStore.loginName || userInfo.realName || userInfo.username||"加载中" }}
+              <heart-outlined class="user-icon" />
+              <span class="text">{{ userStore.realName || userStore.loginName || userInfo.realName || userInfo.username||"加载中" }}</span>
               <caret-down-outlined style="color: #fff; margin: 6px 5px" />
             </div>
           </div>
-
-          <template #overlay>
+        <template #overlay>
             <a-menu>
               <a-menu-item key="1">
                 <user-outlined class="margin-right-10" />
@@ -84,21 +89,36 @@
                 <form-outlined class="margin-right-10" />
                 忘记密码
               </a-menu-item>
-              <a-menu-item key="3" @click="logoutClickHandle">
+              <a-menu-item v-if="false" key="3" @click="logoutClickHandle">
                 <logout-outlined class="margin-right-10" />
                 退出登录
               </a-menu-item>
             </a-menu>
           </template>
         </a-dropdown>
-      </div>
+        <div class="user-info">
+          <div class="user-text">
+            <a-badge :count="55" :overflow-count="20">
+              <bell-outlined class="user-icon" />
+            </a-badge>
+            <span class="text-message">通知</span>
+          </div>
+        </div>
+
+        <div class="user-info" @click="logoutClickHandle">
+          <div class="user-text">
+              <logout-outlined class="user-icon" />
+            <span class="text">退出</span>
+          </div>
+        </div>
+      </section>
     </div>
-    <div class="navs">
-      <div v-for="item in navs" :key="item.name" class="nav-item" :class="{active:item.name === 'myApply'}">
+    <nav class="navs">
+      <div v-for="item in navs" :key="item.routerName" class="nav-item" :class="{active:checkPathActive(item.routerPath)}" @click="routerTo(item)">
        <component :is="item.iconComp"></component>
       {{ item.text }}</div>
-    </div>
-  </div>
+    </nav>
+  </header>
 </template>
 <script setup lang="ts">
 import {
@@ -111,11 +131,13 @@ import {
   FolderFilled,
   AppstoreFilled,
   SignalFilled,
-  StarFilled
+  StarFilled,
+  BellOutlined,
+  HeartOutlined
 } from '@ant-design/icons-vue'
 import Logo from '@/components/ifram/i-logo.vue'
-import { defineComponent, ref, onMounted, inject } from 'vue'
-import { useUserStore } from '@store/index'
+import { defineComponent, ref, onMounted, inject, onUnmounted } from 'vue'
+import { useUserStore, useAppStore } from '@store/index'
 import router from '@/router'
 import CONFIG from '@/config'
 
@@ -124,6 +146,18 @@ defineComponent({
 })
 const userStore = useUserStore()
 const activeServerName = ref('index')
+
+// 添加对useAppStore.state.themeColor 的状态监听
+const currentThemeColor = ref(useAppStore().themeColor)
+const unsubscribe = useAppStore().$subscribe((mutation, state) => {
+  if (currentThemeColor.value !== state.themeColor) {
+    currentThemeColor.value = state.themeColor
+  }
+}
+)
+onUnmounted(() => {
+  unsubscribe()
+})
 
 const userInfo = inject('userInfo') as {realName:string, username:string, userId:string | number}
 
@@ -136,14 +170,28 @@ const checkCurrentServer = (newUrl?: string) => {
   activeServerName.value = url.indexOf('/index/') > -1 ? 'index' : ''
 }
 
+const routerTo = (item) => {
+  if (item.routerName) {
+    router.push({ name: item.routerName })
+  }
+}
+
+const checkPathActive = (urlPath) => {
+  const url = router.currentRoute.value.fullPath
+  if (!urlPath) {
+    return false
+  }
+  return url.indexOf(urlPath) > -1
+}
+
 // 头部导航
 const navs = ref([
-  { iconComp: HomeFilled, name: '', routerName: '', text: '首页' },
-  { iconComp: FolderFilled, name: '', routerName: '', text: '服务超市' },
-  { iconComp: AppstoreFilled, name: '', routerName: '', text: '资产全景' },
-  { iconComp: SignalFilled, name: 'myApply', routerName: '', text: '工单列表' },
-  { iconComp: StarFilled, name: '', routerName: '', text: '消息中心' },
-  { iconComp: UserOutlined, name: '', routerName: '', text: '个人中心' }
+  { iconComp: HomeFilled, routerName: 'home', routerPath: '', text: '首页' },
+  { iconComp: FolderFilled, routerName: '', routerPath: '', text: '服务超市' },
+  { iconComp: AppstoreFilled, routerName: '', routerPath: '', text: '资产全景' },
+  { iconComp: SignalFilled, routerName: 'workOrder', routerPath: '/work', text: '工单列表' },
+  { iconComp: StarFilled, routerName: '', routerPath: '', text: '消息中心' },
+  { iconComp: UserOutlined, routerName: 'personalCenter', routerPath: '/personal', text: '个人中心' }
 ])
 
 onMounted(() => {
@@ -173,7 +221,7 @@ const serverClickHandle = (routerName) => {
 
 .topic-warp {
   // background: #000;
-  background: linear-gradient(90deg, #000, #555, #000);
+  background: linear-gradient(90deg, #262626, #555, #262626);
 }
 
 .title {
@@ -197,7 +245,7 @@ const serverClickHandle = (routerName) => {
 }
 
 .topic {
-  background: #000;
+  background: #262626;
   // background: url(/img/banner-bg.png);
   // background: url(/img/inside/bg.png) no-repeat 100% 100%;
   background-image: linear-gradient(to right bottom, #7d31d9, #2b63ba);
@@ -256,23 +304,37 @@ const serverClickHandle = (routerName) => {
   }
 
   .user-info {
+    font-size: 18px;
     height: @item-height;
-    line-height: 30px;
+    color: #fff;
     .user-text {
       display: flex;
-      color: #fff;
-      font-size: 18px;
-      font-weight: bold;
-      padding: 15px 15px 15px 25px;
+      padding: 15px;
       transition: background 0.3;
       height: 100%;
       cursor: pointer;
-
+      .text {
+        margin-left: 10px;
+      }
+      .text-message{
+        margin-left: 18px;
+      }
       &:hover {
         background: #393e48;
       }
     }
+    .user-icon{
+      margin-top: 3px;
+      color: #fff;
+      font-size: 22px;
+    }
   }
+}
+
+:deep(.ant-scroll-number){
+  right: -15px;
+  top: 0px;
+  transform: scale(0.7);
 }
 
 .navs{
@@ -285,10 +347,12 @@ const serverClickHandle = (routerName) => {
     padding: 0 15px;
     cursor: pointer;
     &.active{
-      color: #4070dd;
+      // color: v-bind('currentThemeColor');
+      color: var(--ant-primary-color);
     }
     &:hover{
-      color: #4070dd;
+      // color: v-bind('currentThemeColor');
+      color: var(--ant-primary-color);
     }
   }
 }

@@ -1,9 +1,14 @@
+<!--
+ * @Description: 框架-内部框架（包括菜单插槽、内容等）
+ * @Author: laigt
+ * @Date: 2023-02-2
+-->
 <template>
   <div class="content">
-    <div class="left-side">
+    <aside class="left-side">
       <slot name="left"></slot>
-    </div>
-    <div class="right-side">
+    </aside>
+    <section class="right-side">
       <div class="right-contnet">
         <a-card class="card" :title="router.currentRoute.value.meta.title" :bordered="false">
           <template #extra>
@@ -17,7 +22,7 @@
           <slot></slot>
         </a-card>
       </div>
-    </div>
+    </section>
   </div>
 </template>
 <script lang="ts" setup>

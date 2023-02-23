@@ -30,14 +30,6 @@ export default [
     children: []
   },
   {
-    name: 'workOrder',
-    path: '/workOrder',
-    component: () => import('@views/portal/workorder/WorkOrder.vue'),
-    meta: {},
-    permission: '',
-    children: []
-  },
-  {
     name: 'serverMarket',
     path: '/serverMarket',
     component: () => import('@views/portal/serverMarket/ServerMarket.vue'),

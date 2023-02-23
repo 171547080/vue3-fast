@@ -4,16 +4,16 @@
  * @Date: 2023-01-31
 -->
 <template>
-  <!-- <outer-frame> -->
   <div class="main">
     <router-view> </router-view>
   </div>
-  <!-- </outer-frame> -->
+  <i-cfg-drawer></i-cfg-drawer>
 </template>
 <script name="app" setup>
 import { onBeforeMount, provide } from 'vue'
-// import OuterFrame from "./components/ifram/outer-frame.vue";
-import { useAppStore } from '@store/index'
+import ICfgDrawer from '@components/ifram/i-cfg-drawer.vue'
+
+import { useAppStore, usePermissionStore } from '@store/index'
 
 // import router from '@/router'
 onBeforeMount(() => {
@@ -22,6 +22,9 @@ onBeforeMount(() => {
 
   // 加载动态配置
   useAppStore().loadProperties()
+
+  // 加载当前用户权限
+  usePermissionStore().loadPermissions()
 })
 const MOCK_USER = {
   userId: '1',
