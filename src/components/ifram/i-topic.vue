@@ -113,11 +113,6 @@
         </div>
       </section>
     </div>
-    <nav class="navs">
-      <div v-for="item in navs" :key="item.routerName" class="nav-item" :class="{active:checkPathActive(item.routerPath)}" @click="routerTo(item)">
-       <component :is="item.iconComp"></component>
-      {{ item.text }}</div>
-    </nav>
   </header>
 </template>
 <script setup lang="ts">
@@ -127,23 +122,16 @@ import {
   LogoutOutlined,
   FormOutlined,
   DotChartOutlined,
-  HomeFilled,
-  FolderFilled,
-  AppstoreFilled,
-  SignalFilled,
-  StarFilled,
   BellOutlined,
   HeartOutlined
 } from '@ant-design/icons-vue'
-import Logo from '@/components/ifram/i-logo.vue'
-import { defineComponent, ref, onMounted, inject, onUnmounted } from 'vue'
+import logo from '@/components/ifram/i-logo.vue'
+
+import { ref, onMounted, inject, onUnmounted } from 'vue'
 import { useUserStore, useAppStore } from '@store/index'
 import router from '@/router'
 import CONFIG from '@/config'
 
-defineComponent({
-  Logo
-})
 const userStore = useUserStore()
 const activeServerName = ref('index')
 
@@ -169,30 +157,6 @@ const checkCurrentServer = (newUrl?: string) => {
   activeServerName.value = url.indexOf('/system/') > -1 ? 'system' : ''
   activeServerName.value = url.indexOf('/index/') > -1 ? 'index' : ''
 }
-
-const routerTo = (item) => {
-  if (item.routerName) {
-    router.push({ name: item.routerName })
-  }
-}
-
-const checkPathActive = (urlPath) => {
-  const url = router.currentRoute.value.fullPath
-  if (!urlPath) {
-    return false
-  }
-  return url.indexOf(urlPath) > -1
-}
-
-// 头部导航
-const navs = ref([
-  { iconComp: HomeFilled, routerName: 'home', routerPath: '', text: '首页' },
-  { iconComp: FolderFilled, routerName: '', routerPath: '', text: '服务超市' },
-  { iconComp: AppstoreFilled, routerName: '', routerPath: '', text: '资产全景' },
-  { iconComp: SignalFilled, routerName: 'workOrder', routerPath: '/work', text: '工单列表' },
-  { iconComp: StarFilled, routerName: '', routerPath: '', text: '消息中心' },
-  { iconComp: UserOutlined, routerName: 'personalCenter', routerPath: '/personal', text: '个人中心' }
-])
 
 onMounted(() => {
   checkCurrentServer(window.location.href)
@@ -335,25 +299,5 @@ const serverClickHandle = (routerName) => {
   right: -15px;
   top: 0px;
   transform: scale(0.7);
-}
-
-.navs{
-  display: flex;
-  background: #fff;
-  padding: 19px 30px;
-  color: #626262;
-  .nav-item{
-    font-size: 18px;
-    padding: 0 15px;
-    cursor: pointer;
-    &.active{
-      // color: v-bind('currentThemeColor');
-      color: var(--ant-primary-color);
-    }
-    &:hover{
-      // color: v-bind('currentThemeColor');
-      color: var(--ant-primary-color);
-    }
-  }
 }
 </style>

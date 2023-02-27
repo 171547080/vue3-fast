@@ -2,7 +2,10 @@ export interface MeunItemType {
     name: string
     title: string
     icon?: string
+    iconComp: Comment
     routerName: string
+    routerPath?: string
+    subNav?: Array<MeunItemType>
     permission?: string
 }
 
@@ -10,6 +13,7 @@ export interface MeunType {
     name: string
     title: string
     icon?: string
+    iconComp: Comment
     routerName: string
     permission?: string
     children?: Array<MeunItemType>

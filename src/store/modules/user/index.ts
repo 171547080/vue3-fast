@@ -39,6 +39,8 @@ export const useUserStore = defineStore({
     */
     async logout() {
       this.setInfo({})
+      // 清楚用户信息
+      usePermissionStore().clearUserInfo()
       clearToken()
     },
 

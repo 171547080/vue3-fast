@@ -5,8 +5,10 @@
 */
 
 import { defineStore } from 'pinia'
+import { setSessionStorage, getSessionStorage, clearSessionStorage } from '@/utils/localStorage'
 import permissionApi from '@api/permissions/permissionApi'
 
+const USE_INFO_SESSION_KEY = 'USE_INFO_SESSION_KEY'
 export interface PermissionsState {
   permissions:Array<string>;
   roles:Array<string>;
@@ -23,11 +25,24 @@ export const usePermissionStore = defineStore({
 
   actions: {
     async loadPermissions() {
+      // 从sessionStorage 中获取当前登陆用户的信息
+      const jsonString = getSessionStorage(USE_INFO_SESSION_KEY)
+      const userInfo = jsonString && jsonString.length ? JSON.parse(jsonString) : {}
+      this.permissions = userInfo.permission || []
+      this.roles = userInfo.roles || []
+      this.user = userInfo.user || {}
+
       permissionApi.getInfo().then((res) => {
         this.permissions = res.permissions
         this.roles = res.roles
         this.user = res.user
+
+        // 将当前用户的permissions信息保存到sessionStorage中
+        setSessionStorage(USE_INFO_SESSION_KEY, JSON.stringify({ permissions: this.permissions, roles: this.roles, user: this.user }))
       })
+    },
+    async clearUserInfo() {
+      clearSessionStorage(USE_INFO_SESSION_KEY)
     }
   }
 })

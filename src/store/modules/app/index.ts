@@ -6,17 +6,19 @@
 
 import { defineStore } from 'pinia'
 import { get } from '@api/axios'
-import { getLocalStorage, setLocalStorage } from '@/utils/localStorage'
+import { clearLocalStorage, getLocalStorage, setLocalStorage } from '@/utils/localStorage'
 interface PropertiesState {
     WS_SERVER_URL: string
 }
 
 const USER_THEME_COLOR_KEY = 'USER_THEME_COLOR_KEY'
+const USER_THEME_CONFIG_KEY = 'USER_THEME_CONFIG_KEY'
 export interface AppState {
     spinning: boolean,
     themeColor: string,
     properties: PropertiesState,
     inverseColorMode: boolean,
+    navMode: 'side' |'top'
 }
 
 export const useAppStore = defineStore({
@@ -25,6 +27,7 @@ export const useAppStore = defineStore({
     spinning: false,
     themeColor: '#1890ff',
     inverseColorMode: false,
+    navMode: 'top',
     properties: {
       WS_SERVER_URL: '127.0.0.1'
     }
@@ -57,6 +60,32 @@ export const useAppStore = defineStore({
     async themeColorChange(color:string) {
       this.themeColor = color
       setLocalStorage(USER_THEME_COLOR_KEY, this.themeColor)
+    },
+    /**
+     * 获取当前用户本地存储中的主题配置数据
+     */
+    async getUserThemeConfig() {
+      const str = getLocalStorage(USER_THEME_CONFIG_KEY) || '{}'
+      let map = { navMode: undefined }
+      try {
+        map = JSON.parse(str)
+      } catch (err) {
+        console.error(err)
+        clearLocalStorage(USER_THEME_CONFIG_KEY)
+      }
+      console.error(map)
+      if (map) {
+        this.navMode = map.navMode ? map.navMode : this.navMode
+      }
+    },
+    /**
+     * 设置用户的主题配置 包括 navMode-导航模式
+     * @param key 用户的主题配置项-键名
+     * @param value  用户的主题配置项-取值
+     */
+    async setUserThemeConfig(key:string, value) {
+      this[key] = value
+      setLocalStorage(USER_THEME_CONFIG_KEY, JSON.stringify({ navMode: this.navMode }))
     }
   }
 })

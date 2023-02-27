@@ -1,18 +1,17 @@
 <!--
- * @Description: 工单列表-全部工单
+ * @Description: 消息列表-全部消息
  * @Author: laigt
- * @Date: 2023-02-16
+ * @Date: 2023-02-27
 -->
 <template>
   <gc-toolbar>
     <template #top>
     <a-button
-        v-hasPermi="['work:order:list']"
         type="primary"
         @click="handleAdd"
         >
         <template #icon><plus-circle-outlined /></template>
-        创建工单
+        创建消息
         </a-button>
     </template>
     <template #left>
@@ -22,7 +21,6 @@
         >
         </a-button> -->
       <gc-buttonx
-        v-hasPermi="['work:order:update']"
         type-name="update"
         :disabled="tableRef?.selectedRowKeys && (tableRef?.selectedRowKeys.length >= 2 || tableRef?.selectedRowKeys.length === 0)"
         @click="handleUpdate(tableRef?.getSelectedRowData()[0])"
@@ -30,14 +28,13 @@
         </gc-buttonx>
 
         <gc-buttonx
-        v-hasPermi="['work:order:del']"
         type-name="del"
         :disabled="!(tableRef?.selectedRowKeys && tableRef?.selectedRowKeys.length >= 1)"
         @click="handleBatchDelete(tableRef?.getSelectedRowData())"
         >
         </gc-buttonx>
 
-        <a-popconfirm placement="right" ok-text="确认" cancel-text="取消" @confirm="handleTableExport('工单列表-全部工单',tableCfg,tableRef)">
+        <a-popconfirm placement="right" ok-text="确认" cancel-text="取消" @confirm="handleTableExport('消息列表-全部消息',tableCfg,tableRef)">
           <template #title>
             <div>确认要当前导出表格内容？</div>
           </template>
@@ -164,19 +161,19 @@
   >
   </gc-paginationx>
 
-  <popup-work-order-apply ref="popupApply" @onSubmit="onRefresh" />
-  <popup-work-order-delete ref="popuDelete" @onSubmit="onRefresh" />
+  <popup-message ref="popupApply" @onSubmit="onRefresh" />
+  <popup-message-delete ref="popuDelete" @onSubmit="onRefresh" />
 </template>
-<script setup lang="ts" name="WorkOrderAllPage">
+<script setup lang="ts" name="MessageAllPage">
 import { ref, reactive, onMounted, getCurrentInstance } from 'vue'
 import { dateFormat } from '@utils/moment'
 import tablexUtils, { TablexCfgType } from '@utils/tablex'
-import orderApi from '@/api/workOrder/orderApi'
+import messageApi from '@/api/message/messageApi'
 
 import { PlusCircleOutlined } from '@ant-design/icons-vue'
 
-import PopupWorkOrderApply from './popup/PopupWorkOrderApply.vue'
-import PopupWorkOrderDelete from './popup/PopupWorkOrderDelete.vue'
+import PopupMessage from './popup/PopupMessage.vue'
+import PopupMessageDelete from './popup/PopupMessageDelete.vue'
 import GcTablex from '@/components/gc/gc-tablex.vue'
 
 const statusMap = {
@@ -201,7 +198,7 @@ const tableRef = ref<InstanceType<typeof GcTablex>>()
 
 const tableCfg = reactive(
   tablexUtils.createCfg({
-    api: orderApi.page,
+    api: messageApi.page,
     url: '',
     params: {
       type: '',
@@ -211,8 +208,8 @@ const tableCfg = reactive(
     columns: [
       { title: '序号', dataIndex: 'index', key: 'index' },
       { title: '人员名称', dataIndex: 'username', key: 'username' },
-      { title: '工单', dataIndex: 'no', key: 'no' },
-      { title: '工单名称', dataIndex: 'name', key: 'name' },
+      { title: '消息', dataIndex: 'no', key: 'no' },
+      { title: '消息名称', dataIndex: 'name', key: 'name' },
       { title: '发起人', key: 'creator', dataIndex: 'creator' },
       { title: '接受部门', dataIndex: 'acceptDep', key: 'acceptDep' },
       { title: '处理部门', key: 'handleDep', dataIndex: 'handleDep' },
@@ -228,7 +225,7 @@ const tableCfg = reactive(
 )
 
 // 新增
-const popupApply = ref<InstanceType<typeof PopupWorkOrderApply>>()
+const popupApply = ref<InstanceType<typeof PopupMessage>>()
 const handleAdd = () => {
   popupApply.value?.showadd()
 }
@@ -239,7 +236,7 @@ const handleUpdate = (row) => {
 }
 
 // 删除
-const popuDelete = ref<InstanceType<typeof PopupWorkOrderDelete>>()
+const popuDelete = ref<InstanceType<typeof PopupMessageDelete>>()
 const handleDelete = (row) => {
   popuDelete.value?.confirm(row)
 }
@@ -323,9 +320,7 @@ const handleExport = (exportFileName = '导出文件', cfg:TablexCfgType, export
 
 // 搜索
 const onSearch = () => {
-  tablexUtils.serach(tableCfg).then(() => {
-    tableRef.value?.setSelectedRowKeys([0, 1, 2, 3])
-  })
+  tablexUtils.serach(tableCfg)
 }
 
 // 重置

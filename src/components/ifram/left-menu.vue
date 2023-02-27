@@ -4,46 +4,52 @@
  * @Date: 2023-02-2
 -->
 <template>
-  <menu class="menu-warp">
-    <div class="open-btn-warp">
-      <span class="open-btn" @click="toggleCollapsed">
-        <menu-unfold-outlined v-if="collapsed" />
-        <menu-fold-outlined v-else />
-      </span>
-    </div>
-    <a-menu
-      v-model:openKeys="openKeys"
-      v-model:selectedKeys="selectedKeys"
-      class="menu"
-      mode="inline"
-      theme="dark"
-      :inline-collapsed="collapsed"
-    >
-      <template v-for="d in newMenus">
-        <template v-if="d.children && d.children.length">
-          <a-sub-menu :key="d.name">
-            <template #icon>
-              <component :is="d.icon" class="icon" />
+    <a-layout>
+      <a-layout-sider v-model:collapsed="menuCollapsed" collapsible :trigger="null">
+        <menu class="menu-warp" >
+          <div class="open-btn-warp">
+            <span class="open-btn" @click="toggleCollapsed">
+              <menu-unfold-outlined v-if="menuCollapsed" />
+              <menu-fold-outlined v-else />
+            </span>
+          </div>
+          <a-menu
+            v-model:openKeys="openKeys"
+            v-model:selectedKeys="selectedKeys"
+            class="menu"
+            mode="inline"
+            theme="dark"
+            :inline-collapsed="menuCollapsed"
+          >
+            <template v-for="d in newMenus">
+              <template v-if="d.children && d.children.length">
+                <a-sub-menu :key="d.name">
+                  <template #icon>
+                    <component :is="d.icon" v-if="d.icon" class="icon" />
+                    <component :is="d.iconComp" v-if="d.iconComp" class="icon" />
+                  </template>
+                  <template #title>{{ d.title }}</template>
+                  <a-menu-item
+                    v-for="subItem in d.children"
+                    :key="subItem.name"
+                    @click="hangleMenuItemClick(subItem)"
+                  >
+                    {{ subItem.title }}
+                  </a-menu-item>
+                </a-sub-menu>
+              </template>
+              <a-menu-item v-else :key="d.name" @click="hangleMenuItemClick(d)">
+                <template #icon>
+                  <component :is="d.icon" class="icon" />
+                  <component :is="d.iconComp" v-if="d.iconComp" class="icon" />
+                </template>
+                <span>{{ d.title }}</span>
+              </a-menu-item>
             </template>
-            <template #title>{{ d.title }}</template>
-            <a-menu-item
-              v-for="subItem in d.children"
-              :key="subItem.name"
-              @click="hangleMenuItemClick(subItem)"
-            >
-              {{ subItem.title }}
-            </a-menu-item>
-          </a-sub-menu>
-        </template>
-        <a-menu-item v-else :key="d.name" @click="hangleMenuItemClick(d)">
-          <template #icon>
-            <component :is="d.icon" class="icon" />
-          </template>
-          <span>{{ d.title }}</span>
-        </a-menu-item>
-      </template>
-    </a-menu>
-  </menu>
+          </a-menu>
+        </menu>
+      </a-layout-sider>
+    </a-layout>
 </template>
 <script lang="ts">
 import { defineComponent, reactive, toRefs, watch, ref } from 'vue'
@@ -74,7 +80,7 @@ import router from '@/router'
 
 import { MeunItemType, MeunType } from './type/LeftMenu'
 interface MenusState {
-  collapsed: boolean;
+  menuCollapsed: boolean;
   selectedKeys: Array<string>;
   openKeys: Array<string>;
   preOpenKeys: Array<string>;
@@ -154,6 +160,10 @@ export default defineComponent({
       default: () => {
         return []
       }
+    },
+    collapsed: {
+      type: Boolean,
+      default: false
     }
     /* 缩放不支持固定宽度  样式变量：@ant-menu-width - 默认展开时的菜单宽度
     width: {
@@ -162,11 +172,11 @@ export default defineComponent({
     }
     */
   },
-  setup(props) {
+  setup(props, { emit }) {
     const newMenus = ref(props.menus as Array<MeunType>)
     // const menusWidth = computed(() => { return props.width + 'px' })
     const state = reactive({
-      collapsed: false,
+      menuCollapsed: false,
       selectedKeys: [''],
       openKeys: [''],
       preOpenKeys: ['']
@@ -191,9 +201,17 @@ export default defineComponent({
       }
     )
 
+    // 同步props.collapsed与menuCollapsed
+    watch(() => props.collapsed,
+      (_val) => {
+        state.menuCollapsed = _val
+      }
+    )
+
     const toggleCollapsed = () => {
-      state.collapsed = !state.collapsed
-      state.openKeys = state.collapsed ? [] : state.preOpenKeys
+      state.menuCollapsed = !state.menuCollapsed
+      state.openKeys = state.menuCollapsed ? [] : state.preOpenKeys
+      emit('toggleCollapsed', state.menuCollapsed)
     }
 
     // 菜单路由跳转

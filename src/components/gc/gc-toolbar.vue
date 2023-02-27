@@ -1,16 +1,16 @@
 <template>
     <div class="toolbar-warp">
-        <div class="toolbar-top">
+        <div  class="toolbar-top" >
             <slot name="top"></slot>
         </div>
         <div class="toolbar">
-            <div class="toolbar-left">
+            <div v-if="$slots.left" class="toolbar-left">
                 <slot name="left"></slot>
             </div>
             <slot name="default"></slot>
-            <div class="toolbar-right">
+            <div v-if="$slots.right" class="toolbar-right">
                 <slot name="right"></slot>
-                <div class="search-warp">
+                <div v-if="$slots.search" class="search-warp">
                     <slot name="search"></slot>
                 </div>
             </div>
@@ -33,11 +33,13 @@
     }
 
     .toolbar-left {
+        padding: 5px 0;
         display: inline-block;
     }
 
     .toolbar-right {
         bottom: 0;
+        padding: 5px 0;
         float: right;
     }
 
