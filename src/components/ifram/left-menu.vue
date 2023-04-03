@@ -116,20 +116,30 @@ const handleRouterChange = (
   // 根据路由名称获取当前激活的菜单项 - 按照路由名称查询
   const handleMeuns = recursiveFindItem(menus, 'routerName', currentRouterName)
 
-  if (!handleMeuns || !handleMeuns.length) {
-    return
+  // 当前路径的路由名称存在于导航菜单（menus） 中时，选中菜单项
+  if (handleMeuns && handleMeuns.length) {
+    const currentMeun = handleMeuns[0]
+
+    // 菜单树中，展开所有父节点
+    const openKeys = getParentNodeToArray(
+      currentMeun.parentNode,
+      'parentNode'
+    ).map((item) => item.name)
+
+    // 修改对应state中的状态
+    state.selectedKeys = [currentMeun.name]
+    // 根据选中节点,展开对应的父节点（目前只有2级菜单）
+    state.openKeys = openKeys
   }
-  const currentMeun = handleMeuns[0]
 
-  // 菜单树中，展开所有父节点
-  const openKeys = getParentNodeToArray(
-    currentMeun.parentNode,
-    'parentNode'
-  ).map((item) => item.name)
-
-  // 修改对应state中的状态
-  state.selectedKeys = [currentMeun.name]
-  state.openKeys = openKeys
+  // 处理左侧main导航菜单栏 选中项问题
+  if (menus && menus.length) {
+    menus.forEach((item) => {
+      if (item.routerPath && router.currentRoute.value.fullPath.indexOf(item.routerPath) > -1) {
+        state.selectedKeys.push(item.name)
+      }
+    })
+  }
 }
 
 export default defineComponent({

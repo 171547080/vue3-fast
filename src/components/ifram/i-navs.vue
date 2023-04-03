@@ -11,7 +11,7 @@
       <component :is="item.iconComp"></component>
        {{ item.title }}</div>
        <template #overlay>
-             <a-menu>
+             <a-menu v-if ='showSubMeun && item.subNav && item.subNav.length'>
                <a-menu-item v-for="(sub,i) in item.subNav" :key="i +'_'+ sub.title" @click="routerTo(sub)">
                  <align-right-outlined class="margin-right-10"/>
                  {{ sub.title }}
@@ -38,6 +38,10 @@ const props = defineProps({
     default: () => {
       return []
     }
+  },
+  showSubMeun: {
+    type: Boolean,
+    default: false
   }
 })
 

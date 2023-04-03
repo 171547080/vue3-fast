@@ -40,3 +40,7 @@ export const APP_NAME = ENV.VITE_APP_NAME || '应用名称'
 
 // 路由模式
 export const ROUTER_MODE = process.env.VITE_ROUTER_MODE || 'hash'
+
+// 是否为DEMO模式展示
+export const APP_IS_DEMO = !!(process.env.VITE_IS_DEMO === 'true')
+console.error(process.env.VITE_IS_DEMO)

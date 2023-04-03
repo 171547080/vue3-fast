@@ -12,8 +12,11 @@
 </template>
 <script name="WorkOrder" setup lang="ts">
 import pageView from './WorkOrderCenter.vue'
+import CONFIG from '@/config'
 
-const USE_FRAME = true
+// demo模式使用静态图片，不使用内部框架
+const USE_FRAME = CONFIG.APP_IS_DEMO === false
+console.error(CONFIG.APP_IS_DEMO)
 </script>
 <style lang="less" scoped>
 .content {

@@ -1,13 +1,13 @@
-var pxAdapter = false;
+const pxAdapter = false
 // 解决一像素问题，安装真实的像素大小显示
-var pxAdapterFn = function(){
-  var devicePixelRatio = window.devicePixelRatio; // 几倍屏幕，逻辑像素比
-  var dpr = devicePixelRatio || 1;
-  var scale = 1 / dpr;
-  var content = 'initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no'
+const pxAdapterFn = function() {
+  const devicePixelRatio = window.devicePixelRatio // 几倍屏幕，逻辑像素比
+  const dpr = devicePixelRatio || 1
+  const scale = 1 / dpr
+  const content = 'initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no'
 
   let meta = document.querySelector('meta[name=viewport]')
-  if (!meta){
+  if (!meta) {
     meta = document.createElement('meta')
     meta.setAttribute('name', 'viewport')
     document.head.appendChild(meta)
@@ -15,19 +15,19 @@ var pxAdapterFn = function(){
   meta.setAttribute('content', content)
 }
 
-if (pxAdapter){
+if (pxAdapter) {
   pxAdapterFn()
-  window.onorientationchange = pxAdapterFn //旋转屏幕重新校正
+  window.onorientationchange = pxAdapterFn // 旋转屏幕重新校正
 }
 
 // 设计稿宽度,按照设计稿像素显示
-var autoAdapter = true;
-var WIDTH = 375 //不加px
-var mobileAdapter = () => {
-  var scale = screen.width/WIDTH
-  var content = `width=${WIDTH}, initial-scale=${scale}, maximum-scale=${scale}, minimum-scale=${scale}`
-  var meta = document.querySelector('meta[name=viewport]')
-  if (!meta){
+const autoAdapter = true
+const WIDTH = 375 // 不加px
+const mobileAdapter = () => {
+  const scale = screen.width / WIDTH
+  const content = `width=${WIDTH}, initial-scale=${scale}, maximum-scale=${scale}, minimum-scale=${scale}`
+  let meta = document.querySelector('meta[name=viewport]')
+  if (!meta) {
     meta = document.createElement('meta')
     meta.setAttribute('name', 'viewport')
     document.head.appendChild(meta)
@@ -35,7 +35,7 @@ var mobileAdapter = () => {
   meta.setAttribute('content', content)
 }
 
-if (autoAdapter){
-  mobileAdapter() //执行函数
-  window.onorientationchange = mobileAdapter //旋转屏幕重新校正
+if (autoAdapter) {
+  mobileAdapter() // 执行函数
+  window.onorientationchange = mobileAdapter // 旋转屏幕重新校正
 }

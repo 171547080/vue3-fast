@@ -8,7 +8,14 @@ import {
 } from '@ant-design/icons-vue'
 
 export default [
-  { iconComp: HomeFilled, name: 'home', routerPath: '', title: '首页' },
+  {
+    iconComp: HomeFilled,
+    name: 'home',
+    routerName:
+     'home',
+    routerPath: '/home',
+    title: '首页'
+  },
   {
     iconComp: FolderFilled,
     name: 'serverMarket',

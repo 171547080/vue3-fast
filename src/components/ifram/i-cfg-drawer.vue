@@ -74,7 +74,7 @@
 
       <a-tooltip placement="top">
         <template #title>
-          <span>头部导航</span>
+          <span>侧边导航</span>
         </template>
         <div class="nav-mode-config-item" @click="switchNavMode('side')">
           <img src="/img/svg/side.svg" />
@@ -83,7 +83,7 @@
       </a-tooltip>
       <a-tooltip placement="top">
         <template #title>
-          <span>侧边导航</span>
+          <span>头部导航</span>
         </template>
         <div class="nav-mode-config-item" @click="switchNavMode('top')">
           <img src="/img/svg/top.svg" />

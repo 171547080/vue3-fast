@@ -6,6 +6,9 @@ import antd from 'ant-design-vue'
 import gc from './components/gc/index'
 import directives from './components/directive'
 
+// 引入
+import * as Icons from '@ant-design/icons-vue'
+
 import './assets/css/reset.css'
 // import 'ant-design-vue/dist/antd.min.css'
 // import 'ant-design-vue/dist/antd.dark.css'
@@ -24,6 +27,11 @@ const app = createApp(App)
 
 app.use(piniaStore)
 app.use(router)
+
+// 全局注册所有antd的图标
+for (const key in Icons) {
+  app.component(key, Icons[key])
+}
 
 // 添加全局指令
 app.use(directives)

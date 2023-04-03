@@ -168,7 +168,7 @@
   <popup-work-order-delete ref="popuDelete" @onSubmit="onRefresh" />
 </template>
 <script setup lang="ts" name="WorkOrderAllPage">
-import { ref, reactive, onMounted, getCurrentInstance } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { dateFormat } from '@utils/moment'
 import tablexUtils, { TablexCfgType } from '@utils/tablex'
 import orderApi from '@/api/workOrder/orderApi'
@@ -343,7 +343,8 @@ const onRefresh = () => {
   tablexUtils.refresh(tableCfg)
 }
 onMounted(() => {
-  console.error(getCurrentInstance())
+  // 获取当前vue实例对象
+  // console.error(getCurrentInstance())
   onSearch()
 })
 </script>

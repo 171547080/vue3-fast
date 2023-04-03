@@ -165,7 +165,7 @@
   <popup-message-delete ref="popuDelete" @onSubmit="onRefresh" />
 </template>
 <script setup lang="ts" name="MessageAllPage">
-import { ref, reactive, onMounted, getCurrentInstance } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { dateFormat } from '@utils/moment'
 import tablexUtils, { TablexCfgType } from '@utils/tablex'
 import messageApi from '@/api/message/messageApi'
@@ -338,7 +338,6 @@ const onRefresh = () => {
   tablexUtils.refresh(tableCfg)
 }
 onMounted(() => {
-  console.error(getCurrentInstance())
   onSearch()
 })
 </script>

@@ -23,7 +23,7 @@ export function getParentNodeToArray(node, parentKey = 'parentNode') {
  * @param key    查询键名
  * @param value  查询值
  * @param parent 父节点，可为空
- * @returns 自定将父节点信息保存到item[parentNode]上
+ * @returns 自定义将父节点信息保存到item[parentNode]上
  */
 export function recursiveFindItem(tree, key, value, parent = null) {
   let result = new Array<any>()
@@ -31,8 +31,8 @@ export function recursiveFindItem(tree, key, value, parent = null) {
   tree.forEach((item) => {
     if (item && item[key] === value) {
       // 记录父级节点信息
-      item.parentNode = parent
-      result.push(item)
+      // item.parentNode = parent
+      result.push({ ...item, parentNode: parent })
     }
     if (item.children && item.children.length) {
       const childrenItems = recursiveFindItem(item.children, key, value, item)

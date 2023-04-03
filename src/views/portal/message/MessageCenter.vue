@@ -19,7 +19,10 @@ import OuterFrame from '@components/ifram/outer-frame.vue'
 import InnerFrame from '@components/ifram/inner-frame.vue'
 import LeftMenu from '@components/ifram/left-menu.vue'
 import messageMenus from '@/meuns/messageCenter'
-const USE_FRAME = true
+import CONFIG from '@/config'
+
+// demo模式使用静态图片，不使用内部框架
+const USE_FRAME = CONFIG.APP_IS_DEMO === false
 </script>
 <style lang="less" scoped>
 

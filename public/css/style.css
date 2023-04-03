@@ -1,0 +1,107 @@
+*{ margin: 0; padding: 0; border: 0; box-sizing: border-box; }
+a{ text-decoration: none; }
+html{ font-size: 1px; }
+@media screen and (max-height: 920px) {
+    html{ font-size: 0.8px; }
+}
+@media screen and (max-height: 800px) {
+    html{ font-size: 0.7px; }
+}
+
+
+.app-container{
+    position: relative; z-index: 1; min-height: 100vh; min-width: 1200rem;
+    background: url('../images/global_bg.jpg') center no-repeat; background-size: cover;
+    display: flex; flex-direction: column; justify-content: space-between;
+}
+.wabe-bg{ position: absolute; bottom: 0; left: 0; right: 0; width: 100%; z-index: -1; }
+
+.top-nav{ position: sticky; top: 0; z-index: 99; background: rgba(11, 24, 87, .8); }
+.nav-list{ overflow: hidden; height: 75rem; line-height: 75rem; padding-right: 115rem; }
+.nav-list .item{ position: relative; float: right; color: #FFF; padding: 0 35rem; cursor: pointer; font-size: 20rem; }
+.nav-list .item i{
+    font-style: normal; position: absolute; right: 5rem; top: 20rem; line-height: 25rem; text-align: center;
+    width: 25rem; height: 25rem; border-radius: 50%; background: #db2904; color: #FFF;
+}
+
+.logo{ padding: 20rem 0; text-align: center; }
+
+.swipe-wrapper{ position: relative; padding: 0 80rem; }
+.swiper-pre-btn, .swiper-next-btn{
+    position: absolute; top: 0; bottom: 0; margin: auto; cursor: pointer;
+    opacity: .3; width: 30rem;
+}
+.swiper-pre-btn{ left: 25rem; }
+.swiper-pre-btn:hover{ opacity: .8; }
+.swiper-next-btn{ right: 25rem; }
+.swiper-next-btn:hover{ opacity: .8; }
+
+.link-list{ display: flex; flex-wrap: wrap; justify-content: center; height: 530rem; }
+.link-item-wrap{ width: 20%; min-width: 260rem; max-width: 340rem; margin-bottom: 80rem; }
+.link-list .link-item{
+    height: 205rem; background-color: rgba(10, 27, 85, .8); text-align: center;
+    margin: 0 20rem; border: 2rem solid #1b3467; border-radius: 15rem;
+    box-shadow: 0 10rem 20rem -10rem rgba(0, 0, 0, .3); cursor: pointer;
+}
+a.link-item-wrap .link-item:hover{ background-image: url('../images/hover-line-bg.png'); background-position: center; background-repeat: no-repeat; background-size: 103% 100%; }
+.link-list .link-item span{ display: block; color: #d2d3d6; font-size: 25rem; opacity: .4; }
+.link-list .link-item .icon-wrap{ position: relative; z-index: 1; height: 70rem; width: 80rem; margin: 30rem auto; text-align: center; }
+a.link-item-wrap .link-item .icon-wrap img{ opacity: 1; }
+a.link-item-wrap .link-item span{ opacity: 1; }
+.link-list .link-item .icon-wrap::after{
+    content: ''; position: absolute; width: 50rem; height: 30rem; border-radius: 50%;
+    top: 20rem; right: 0; bottom: 0; left: 0; margin: auto; z-index: -1;
+    box-shadow: 0 20rem 30rem rgba(0, 0, 0, .7);
+}
+
+.nav-bar{ text-align: center; padding-bottom: 40rem; }
+.nav-bar .item{ display: inline-block; cursor: pointer; margin: 0 80rem; }
+.nav-bar .item img{ filter: grayscale(1) }
+.nav-bar .item span{ display: block; color: #FFF; font-size: 25rem; opacity: .4; }
+.nav-bar .item.on img{ animation: beat .5s both; filter: grayscale(0); }
+.nav-bar .item.on span{ color: #1ae9f8; opacity: 1; }
+
+@keyframes beat {
+    0%{ transform: translateY(0px); }
+    30%{ transform: translateY(5px); }
+    60%{ transform: translateY(-15px); }
+    100%{ transform: translateY(-10px); }
+}
+
+
+/* 驾驶舱 */
+.cockpit-container{
+    min-height: 100vh; max-width: 100%; overflow: hidden; user-select: none;
+    background: url('../images/cockpit/global_bg.jpg') center no-repeat;
+    background-size: cover;
+    display: flex; flex-direction: column; justify-content: space-between; align-items: center;
+}
+.cockpit-header{ width: 100%; }
+.cockpit-header img{ display: block; width: 100%; }
+.cockpit-body{ flex: 1; display: flex; align-items: center; transition-duration: .2s; }
+.cockpit-swiper{ position: relative; display: flex; align-items: center; transition-duration: .2s; }
+.cockpit-tools{
+    position: absolute; width: 84%; left: 0; right: 0; margin: auto;
+}
+
+.cockpit-tools .swiper { padding-top: 30px; perspective: 1500px; }
+.cockpit-tools .swiper-slide { width: 20%; padding-bottom: 90px; background: url('../images/cockpit/shadow.png') center bottom no-repeat; background-size: 97%; }
+.cockpit-tools .swiper-slide img { display: block; width: 100%; }
+.cockpit-tools .swiper-slide p {
+    line-height: 58px; padding-top: 0; text-align: center; color: #636363;
+    font-size: 0.8em; margin: 0;
+}
+
+/* 屏幕适配 */
+@media screen and (max-height: 920px) {
+    .cockpit-body{
+        transform: scale(.8);
+        margin-top: -20px;
+    }
+}
+@media screen and (max-height: 800px) {
+    .cockpit-body{
+        transform: scale(.6);
+        margin-top: -50px;
+    }
+}

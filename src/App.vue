@@ -7,14 +7,15 @@
   <div class="main">
     <router-view> </router-view>
   </div>
-  <i-cfg-drawer></i-cfg-drawer>
+  <i-cfg-drawer v-if="showCfg"></i-cfg-drawer>
 </template>
 <script name="app" setup>
 import { onBeforeMount, provide } from 'vue'
 import ICfgDrawer from '@components/ifram/i-cfg-drawer.vue'
+import CONFIG from '@/config'
 
 import { useAppStore, usePermissionStore } from '@store/index'
-
+const showCfg = true
 // import router from '@/router'
 onBeforeMount(() => {
   // 检查登录信息
@@ -23,8 +24,10 @@ onBeforeMount(() => {
   // 加载动态配置
   useAppStore().loadProperties()
 
-  // 加载当前用户权限
-  usePermissionStore().loadPermissions()
+  if (CONFIG.APP_IS_DEMO === false) {
+    // 加载当前用户权限
+    usePermissionStore().loadPermissions()
+  }
 })
 const MOCK_USER = {
   userId: '1',

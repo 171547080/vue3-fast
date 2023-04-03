@@ -15,6 +15,7 @@ export interface MeunType {
     icon?: string
     iconComp: Comment
     routerName: string
+    routerPath?: string
     permission?: string
     children?: Array<MeunItemType>
     url: string

@@ -46,31 +46,6 @@ export default {
     }
     updateEl()
   },
-  // updated(el, binding) {
-  //   console.error('update')
-  //   const usePermission = usePermissionStore()
-  //   const { value } = binding
-  //   const all_permission = '*:*:*'
-  //   const permissions = usePermission.permissions
-
-  //   const updateEl = () => {
-  //     if (value && value instanceof Array && value.length > 0) {
-  //       const permissionFlag = value
-
-  //       const hasPermissions = permissions.some(permission => {
-  //         return all_permission === permission || permissionFlag.includes(permission)
-  //       })
-
-  //       if (!hasPermissions) {
-  //         console.error('update removeChild')
-  //         el.parentNode && el.parentNode.removeChild(el)
-  //       }
-  //     } else {
-  //       throw new Error('请设置操作权限标签值')
-  //     }
-  //   }
-  //   updateEl()
-  // },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   unmounted(el, binding, vnode, prevVnode) {
     if (el && el.unsubscribe) {

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XXXXX智慧中枢</title>
+    <link rel="stylesheet" href="./js/swiper-bundle.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/swiper-bundle.min.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <img class="wabe-bg" src="./images/bars_bg.png" />
+        <div class="top-nav">
+            <div class="nav-list">
+                <div class="item">个人中心</div>
+                <div class="item">工单列表<i>5</i></div>
+                <div class="item">消息中心<i>5</i></div>
+                <div class="item">应用中心</div>
+            </div>
+        </div>
+        <div class="logo"><img src="./images/logo.png" /></div>
+        <div class="swipe-wrapper">
+            <img class="swiper-pre-btn" src="./images/pre-btn.png" onclick="handlePrev()"/>
+            <div class="swiper-container" style="overflow: hidden;">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="link-list">
+                            <div class="link-item-wrap">
+                                <div class="link-item">
+                                    <div class="icon-wrap"><img src="./images/nav_icon_1.png" /></div>
+                                    <span>12345</span>
+                                </div>
+                            </div>
+                            <div class="link-item-wrap">
+                                <div class="link-item">
+                                    <div class="icon-wrap"><img src="./images/nav_icon_2.png" /></div>
+                                    <span>环境保护</span>
+                                </div>
+                            </div>
+                            <div class="link-item-wrap">
+                                <div class="link-item">
+                                    <div class="icon-wrap"><img src="./images/nav_icon_3.png" /></div>
+                                    <span>民生服务</span>
+                                </div>
+                            </div>
+                            <a href="http://172.19.4.8/platform#/" target="_blank" class="link-item-wrap">
+                                <div class="link-item">
+                                    <div class="icon-wrap"><img src="./images/nav_icon_4.png" /></div>
+                                    <span>企业服务</span>
+                                </div>
+                            </a>
+                            <div class="link-item-wrap">
+                                <div class="link-item">
+                                    <div class="icon-wrap"><img src="./images/nav_icon_5.png" /></div>
+                                    <span>应急管理</span>
+                                </div>
+                            </div>
+                            <a href="http://172.19.4.11/dexchange/portal/" target="_blank" class="link-item-wrap">
+                                <div class="link-item">
+                                    <div class="icon-wrap"><img src="./images/nav_icon_6.png" /></div>
+                                    <span>数据资源管理系统</span>
+                                </div>
+                            </a>
+                            <a href="./cockpit.html" target="_blank" class="link-item-wrap">
+                                <div class="link-item">
+                                    <div class="icon-wrap"><img src="./images/nav_icon_7.png" /></div>
+                                    <span>驾驶舱</span>
+                                </div>
+                            </a>
+                            <a href="http://172.19.4.19/" target="_blank" class="link-item-wrap">
+                                <div class="link-item">
+                                    <div class="icon-wrap"><img src="./images/nav_icon_8.png" /></div>
+                                    <span>AI服务</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <img class="swiper-next-btn" src="./images/next-btn.png" onclick="handleNext()"/>
+        </div>
+        <div class="nav-bar">
+            <div class="item on" id="nav0" onclick="handleSwipeChange(this, 0)">
+                <img src="./images/bar1.png" />
+                <span>常用服务</span>
+            </div>
+            <div class="item on" id="nav1" onclick="handleSwipeChange(this, 1)">
+                <img src="./images/bar2.png" />
+                <span>数据服务</span>
+            </div>
+            <div class="item on" id="nav2" onclick="handleSwipeChange(this, 2)">
+                <img src="./images/bar3.png" />
+                <span>应用服务</span>
+            </div>
+            <div class="item on" id="nav3" onclick="handleSwipeChange(this, 3)">
+                <img src="./images/bar4.png" />
+                <span>共性服务</span>
+            </div>
+        </div>
+    </div>
+    <script>
+        var mySwiper = new Swiper('.swiper-container', {
+            autoplay: false,//可选选项，自动滑动
+            on: {
+                slideChangeTransitionEnd: function(swiper){
+                    clearNavActive()
+                    const nav = document.getElementById('nav' + swiper.activeIndex)
+                    nav.className = 'item on'
+                }
+            }
+        })
+
+        function handlePrev(){
+            mySwiper.slidePrev()
+        }
+        function handleNext(){
+            mySwiper.slideNext()
+        }
+
+        function clearNavActive(){
+            var bars = document.getElementsByClassName('nav-bar')[0]
+            for (var item of bars.children) {
+                item.className = 'item'
+            }
+        }
+
+        function handleSwipeChange(self, index){
+            if ( index !== 0 ) return
+            clearNavActive()
+            self.className = 'item on'
+            mySwiper.slideTo(index)
+        }
+    </script>
+</body>
+
+</html>

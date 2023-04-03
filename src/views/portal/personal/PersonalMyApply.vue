@@ -13,7 +13,10 @@
 <script name="PersonalMyApply" setup lang="ts">
 import pageView from './PersonalPage.vue'
 
-const USE_FRAME = true
+import CONFIG from '@/config'
+
+// demo模式使用静态图片，不使用内部框架
+const USE_FRAME = CONFIG.APP_IS_DEMO === false
 </script>
 <style lang="less" scoped>
 .content {

@@ -16,7 +16,6 @@
           <div
             class="server-text"
             :class="{ active: activeServerName === 'index' }"
-            @click="serverClickHandle('indexV1')"
           >
             {{ "首页" }}
             <caret-down-outlined
@@ -31,7 +30,6 @@
             <div
               class="server-text"
               :class="{ active: activeServerName === 'server' }"
-              @click="serverClickHandle('AI')"
             >
               {{ "服务" }}
               <caret-down-outlined style="color: #fff; margin: 6px 5px" />
@@ -60,7 +58,6 @@
           <div
             class="server-text"
             :class="{ active: activeServerName === 'system' }"
-            @click="serverClickHandle('System')"
           >
             {{ "系统管理" }}
             <caret-down-outlined
@@ -166,15 +163,6 @@ const logoutClickHandle = () => {
   userStore.logout().then(() => {
     userStore.checkLogin()
   })
-}
-
-const serverClickHandle = (routerName) => {
-  console.error(routerName)
-  /** 暂不跳转
-  router.push({ name: routerName }).then(() => {
-    checkCurrentServer()
-  })
-   */
 }
 </script>
 <style lang="less" scoped>

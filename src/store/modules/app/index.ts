@@ -70,7 +70,6 @@ export const useAppStore = defineStore({
       try {
         map = JSON.parse(str)
       } catch (err) {
-        console.error(err)
         clearLocalStorage(USER_THEME_CONFIG_KEY)
       }
       console.error(map)

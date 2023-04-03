@@ -17,7 +17,7 @@ const main = [
       // 取消进入动画flag  true-路由切换关闭进入、退出动画
       cancelTransition: true
     },
-    component: () => import('@views/home/Home.vue')
+    component: () => import('@views/home/HomeV1.vue')
   },
   {
     name: 'login',

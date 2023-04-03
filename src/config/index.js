@@ -15,7 +15,8 @@ import {
   ERROR_404_IMG_URL,
   DEFAULT_IMG_URL,
   APP_NAME,
-  ROUTER_MODE
+  ROUTER_MODE,
+  APP_IS_DEMO
 } from './constant'
 const env = ENV_MODE || 'prod'
 const CONFIG = {
@@ -29,7 +30,8 @@ const CONFIG = {
   error404Url: ERROR_404_IMG_URL,
   defaultUrl: DEFAULT_IMG_URL,
   appName: APP_NAME,
-  ROUTER_MODE
+  ROUTER_MODE,
+  APP_IS_DEMO
 }
 
 export default CONFIG
